@@ -7,6 +7,14 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { useCreateOrderMutation } from "../store/slices/ordersApiSlice";
 import { clearCartItems } from "../store/slices/cartSlice";
+import { motion as Motion } from "framer-motion";
+import {
+  Package,
+  Truck,
+  CreditCard,
+  ChevronRight,
+  ShieldCheck,
+} from "lucide-react";
 
 const PlaceOrder = () => {
   const navigate = useNavigate();
@@ -28,8 +36,8 @@ const PlaceOrder = () => {
   const itemsPrice = addDecimals(
     cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0),
   );
-  const shippingPrice = addDecimals(itemsPrice > 100 ? 0 : 10);
-  const taxPrice = addDecimals(Number((0.15 * itemsPrice).toFixed(2))); // 15% tax
+  const shippingPrice = addDecimals(itemsPrice > 5000 ? 0 : 150);
+  const taxPrice = addDecimals(Number((0.18 * itemsPrice).toFixed(2))); // 18% GST/Tax
   const totalPrice = (
     Number(itemsPrice) +
     Number(shippingPrice) +
@@ -56,101 +64,191 @@ const PlaceOrder = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto mt-10">
-      <CheckoutSteps step1 step2 step3 step4 />
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-12">
-        <div className="col-span-2 space-y-6">
-          <div className="bg-white p-6 rounded-lg border shadow-sm">
-            <h2 className="text-xl font-bold mb-4 border-b pb-2">Shipping</h2>
-            <p className="text-gray-700">
-              <strong className="font-semibold">Address: </strong>
-              {cart.shippingAddress.street}, {cart.shippingAddress.city},{" "}
-              {cart.shippingAddress.postalCode}, {cart.shippingAddress.country}
-            </p>
-          </div>
+    <div className="min-h-screen bg-background pt-24 pb-20">
+      <div className="container mx-auto px-4 max-w-7xl">
+        <CheckoutSteps step1 step2 step3 step4 />
 
-          <div className="bg-white p-6 rounded-lg border shadow-sm">
-            <h2 className="text-xl font-bold mb-4 border-b pb-2">
-              Payment Method
-            </h2>
-            <strong className="font-semibold text-gray-700">Method: </strong>
-            {cart.paymentMethod}
-          </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mt-16">
+          <div className="lg:col-span-8 space-y-12">
+            {/* Shipping Info */}
+            <Motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="bg-secondary/10 border rounded-4xl p-8 md:p-10"
+            >
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                  <Truck size={20} />
+                </div>
+                <h2 className="font-bold uppercase tracking-widest text-xs">
+                  Delivery Destination
+                </h2>
+              </div>
+              <p className="text-lg font-medium">
+                {cart.shippingAddress.fullName}
+                <br />
+                <span className="text-muted-foreground">
+                  {cart.shippingAddress.street}, {cart.shippingAddress.city}
+                </span>
+                <br />
+                <span className="text-muted-foreground">
+                  {cart.shippingAddress.postalCode},{" "}
+                  {cart.shippingAddress.country}
+                </span>
+              </p>
+            </Motion.div>
 
-          <div className="bg-white p-6 rounded-lg border shadow-sm">
-            <h2 className="text-xl font-bold mb-4 border-b pb-2">
-              Order Items
-            </h2>
-            {cart.cartItems.length === 0 ? (
-              <Message>Your cart is empty</Message>
-            ) : (
-              <div className="space-y-4">
+            {/* Payment Method */}
+            <Motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 }}
+              className="bg-secondary/10 border rounded-4xl p-8 md:p-10"
+            >
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                  <CreditCard size={20} />
+                </div>
+                <h2 className="font-bold uppercase tracking-widest text-xs">
+                  Payment Method
+                </h2>
+              </div>
+              <p className="text-lg font-medium flex items-center gap-3">
+                {cart.paymentMethod}{" "}
+                <span className="text-[10px] bg-primary text-primary-foreground px-2 py-0.5 rounded-full">
+                  ACTIVE
+                </span>
+              </p>
+            </Motion.div>
+
+            {/* Items Summary */}
+            <Motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+              className="bg-secondary/10 border rounded-4xl p-8 md:p-10"
+            >
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                  <Package size={20} />
+                </div>
+                <h2 className="font-bold uppercase tracking-widest text-xs">
+                  Bag Contents
+                </h2>
+              </div>
+
+              <div className="space-y-8">
                 {cart.cartItems.map((item, index) => (
-                  <div key={index} className="flex items-center space-x-4">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-16 h-16 object-contain rounded bg-gray-50 border"
-                    />
-                    <Link
-                      to={`/product/${item._id}`}
-                      className="flex-1 hover:text-teal-600 text-gray-800 line-clamp-2 text-sm font-medium"
-                    >
-                      {item.name}
-                    </Link>
-                    <div className="font-medium text-gray-700">
-                      {item.qty} x ${item.price.toFixed(2)} = $
-                      {(item.qty * item.price).toFixed(2)}
+                  <div key={index} className="flex gap-6 items-center group">
+                    <div className="w-20 h-24 bg-background rounded-2xl border p-2 overflow-hidden shrink-0">
+                      <img
+                        src={item.image}
+                        className="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-bold tracking-tight line-clamp-1">
+                        {item.name}
+                      </h4>
+                      <p className="text-xs text-muted-foreground font-bold mt-1 uppercase tracking-widest">
+                        {item.qty} × ₹{item.price.toLocaleString()}
+                      </p>
+                    </div>
+                    <div className="text-lg font-medium">
+                      ₹{(item.qty * item.price).toLocaleString()}
                     </div>
                   </div>
                 ))}
               </div>
-            )}
+            </Motion.div>
           </div>
-        </div>
 
-        <div>
-          <div className="bg-white p-6 rounded-lg border shadow-sm sticky top-24">
-            <h2 className="text-xl font-bold mb-4 border-b pb-2">
-              Order Summary
-            </h2>
-            <div className="space-y-3 mb-6">
-              <div className="flex justify-between text-gray-600">
-                <span>Items:</span>
-                <span>${itemsPrice}</span>
-              </div>
-              <div className="flex justify-between text-gray-600">
-                <span>Shipping:</span>
-                <span>${shippingPrice}</span>
-              </div>
-              <div className="flex justify-between text-gray-600 border-b pb-3">
-                <span>Tax (15%):</span>
-                <span>${taxPrice}</span>
-              </div>
-              <div className="flex justify-between font-bold text-lg text-gray-900">
-                <span>Total:</span>
-                <span>${totalPrice}</span>
-              </div>
-            </div>
-
-            {error && (
-              <Message variant="danger">
-                {error?.data?.message || "Error creating order"}
-              </Message>
-            )}
-
-            <button
-              type="button"
-              className="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-4 rounded transition-colors flex justify-center items-center"
-              disabled={cart.cartItems.length === 0 || isLoading}
-              onClick={placeOrderHandler}
+          {/* Checkout Panel */}
+          <div className="lg:col-span-4">
+            <Motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="bg-primary text-primary-foreground rounded-4xl p-10 md:p-12 shadow-2xl sticky top-32"
             >
-              {isLoading ? (
-                <Loader className="w-5 h-5 text-white" fullScreen={false} />
-              ) : (
-                "Place Order"
-              )}
-            </button>
+              <h2 className="text-3xl font-bold tracking-tighter mb-10">
+                Grand Total
+              </h2>
+
+              <div className="space-y-6">
+                <div className="flex justify-between items-center opacity-70">
+                  <span className="text-xs font-bold uppercase tracking-widest">
+                    Sub-bag Total
+                  </span>
+                  <span className="text-xl font-medium">
+                    ₹{Number(itemsPrice).toLocaleString()}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center opacity-70">
+                  <span className="text-xs font-bold uppercase tracking-widest">
+                    Courier (Global)
+                  </span>
+                  <span className="text-xl font-medium">
+                    {Number(shippingPrice) === 0 ? "FREE" : `₹${shippingPrice}`}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center opacity-70">
+                  <span className="text-xs font-bold uppercase tracking-widest">
+                    Est. Taxes (18%)
+                  </span>
+                  <span className="text-xl font-medium">
+                    ₹{Number(taxPrice).toLocaleString()}
+                  </span>
+                </div>
+
+                <div className="h-px bg-white/20 my-8" />
+
+                <div className="flex justify-between items-center">
+                  <span className="text-sm font-bold uppercase tracking-widest">
+                    Total to Pay
+                  </span>
+                  <span className="text-5xl font-bold tracking-tighter">
+                    ₹{Number(totalPrice).toLocaleString()}
+                  </span>
+                </div>
+              </div>
+
+              <div className="mt-12 space-y-6">
+                {error && (
+                  <Message
+                    variant="danger"
+                    className="bg-white/10 text-white border-white/20"
+                  >
+                    {error?.data?.message || "Internal failure"}
+                  </Message>
+                )}
+
+                <button
+                  type="button"
+                  disabled={cart.cartItems.length === 0 || isLoading}
+                  onClick={placeOrderHandler}
+                  className="w-full bg-white text-primary font-bold py-6 rounded-2xl shadow-xl hover:bg-opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-3 group"
+                >
+                  {isLoading ? (
+                    <Loader className="w-6 h-6" />
+                  ) : (
+                    <>
+                      Finalize Order{" "}
+                      <ChevronRight
+                        size={20}
+                        className="group-hover:translate-x-1 transition-transform"
+                      />
+                    </>
+                  )}
+                </button>
+
+                <div className="flex items-center justify-center gap-2 opacity-60">
+                  <ShieldCheck size={14} />
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em]">
+                    Insured Transaction
+                  </span>
+                </div>
+              </div>
+            </Motion.div>
           </div>
         </div>
       </div>

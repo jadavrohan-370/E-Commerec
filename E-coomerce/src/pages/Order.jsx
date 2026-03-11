@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   useGetOrderDetailsQuery,
@@ -9,10 +9,20 @@ import {
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { toast } from "react-toastify";
+import {
+  Package,
+  Truck,
+  CreditCard,
+  CheckCircle2,
+  AlertCircle,
+  Calendar,
+  Mail,
+  MapPin,
+} from "lucide-react";
+import { motion as Motion } from "framer-motion";
 
 const Order = () => {
   const { id: orderId } = useParams();
-  const [sdkReady, setSdkReady] = useState(false);
 
   const {
     data: order,
@@ -20,32 +30,19 @@ const Order = () => {
     error,
     refetch,
   } = useGetOrderDetailsQuery(orderId);
-  const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
-  const { data: configAuth, isLoading: loadingConfig } =
-    useGetRazorpayClientIdQuery();
+  const [payOrder] = usePayOrderMutation();
+  const { data: configAuth } = useGetRazorpayClientIdQuery();
   const [createRazorpayOrder, { isLoading: loadingRazorpayOrder }] =
     useCreateRazorpayOrderMutation();
 
   useEffect(() => {
-    if (!order) return;
+    if (!order || order.isPaid) return;
 
-    const addRazorpayScript = () => {
+    if (!window.Razorpay) {
       const script = document.createElement("script");
       script.src = "https://checkout.razorpay.com/v1/checkout.js";
       script.async = true;
-      script.onload = () => {
-        setSdkReady(true);
-      };
       document.body.appendChild(script);
-    };
-
-    if (!order.isPaid) {
-      if (!window.Razorpay) {
-        addRazorpayScript();
-      } else {
-        // eslint-disable-next-line
-        setSdkReady(true);
-      }
     }
   }, [order]);
 
@@ -60,7 +57,7 @@ const Order = () => {
         },
       });
       refetch();
-      toast.success("Payment successful");
+      toast.success("Transaction Securely Completed");
     } catch (err) {
       toast.error(err?.data?.message || err.message);
     }
@@ -76,9 +73,10 @@ const Order = () => {
         key: configAuth.clientId,
         amount: rzpOrderData.amount,
         currency: rzpOrderData.currency,
-        name: "Croma Clone Inc.",
-        description: "Test Transaction",
-        image: "https://via.placeholder.com/150",
+        name: "NOVA STORE",
+        description: "Official Acquisition",
+        image:
+          "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=200&auto=format&fit=crop",
         order_id: rzpOrderData.id,
         handler: function (response) {
           successPaymentHandler(response);
@@ -86,13 +84,9 @@ const Order = () => {
         prefill: {
           name: order.user.name,
           email: order.user.email,
-          contact: "9999999999",
-        },
-        notes: {
-          address: "Croma Clone Corporate Office",
         },
         theme: {
-          color: "#14b8a6", // teal-500
+          color: "#000000",
         },
       };
 
@@ -100,145 +94,255 @@ const Order = () => {
       paymentObject.open();
     } catch (err) {
       console.error("Razorpay Load Error:", err);
-      toast.error("Failed to initialize payment");
+      toast.error("Failed to initialize encrypted payment");
     }
   };
 
-  if (isLoading) return <Loader />;
+  if (isLoading)
+    return (
+      <div className="min-h-screen pt-32 flex justify-center">
+        <Loader />
+      </div>
+    );
+
   if (error)
     return (
-      <Message variant="danger">{error?.data?.message || error.error}</Message>
+      <div className="container mx-auto px-4 pt-32">
+        <Message variant="danger">
+          {error?.data?.message || error.error}
+        </Message>
+      </div>
     );
 
   return (
-    <div className="max-w-6xl mx-auto mt-10">
-      <h1 className="text-3xl font-bold mb-8 text-gray-900 border-b pb-4">
-        Order ID: {order._id}
-      </h1>
+    <div className="min-h-screen bg-background pt-24 pb-20">
+      <div className="container mx-auto px-4 max-w-7xl">
+        <div className="mb-12 border-b pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.3em] text-muted-foreground mb-4">
+              <Package size={14} /> Transaction Record
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tighter">
+              Order #{order._id.substring(order._id.length - 8).toUpperCase()}
+            </h1>
+          </div>
+          <div className="flex items-center gap-4">
+            <span
+              className={`px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest border ${order.isPaid ? "bg-green-500/10 border-green-500/20 text-green-600" : "bg-destructive/10 border-destructive/20 text-destructive"}`}
+            >
+              {order.isPaid ? "Payment Confirmed" : "Payment Required"}
+            </span>
+          </div>
+        </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-12">
-        <div className="col-span-2 space-y-6">
-          <div className="bg-white p-6 rounded-lg border shadow-sm">
-            <h2 className="text-xl font-bold mb-4 border-b pb-2">
-              Shipping Details
-            </h2>
-            <p className="text-gray-700">
-              <strong className="font-semibold">Name: </strong>{" "}
-              {order.user.name}
-            </p>
-            <p className="text-gray-700 mb-4">
-              <strong className="font-semibold">Email: </strong>{" "}
-              <a
-                href={`mailto:${order.user.email}`}
-                className="text-teal-600 hover:underline"
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+          <div className="lg:col-span-8 space-y-12">
+            {/* Customer & Delivery Section */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <Motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-secondary/10 border rounded-4xl p-8"
               >
-                {order.user.email}
-              </a>
-            </p>
-            <p className="text-gray-700 mb-4">
-              <strong className="font-semibold">Address: </strong>
-              {order.shippingAddress.street}, {order.shippingAddress.city},{" "}
-              {order.shippingAddress.postalCode},{" "}
-              {order.shippingAddress.country}
-            </p>
-            {order.isDelivered ? (
-              <Message variant="success">
-                Delivered on {order.deliveredAt.substring(0, 10)}
-              </Message>
-            ) : (
-              <Message variant="danger">Status: {order.orderStatus}</Message>
-            )}
-          </div>
+                <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-6 flex items-center gap-2">
+                  <Calendar size={14} /> Acquisition Details
+                </h3>
+                <div className="space-y-4">
+                  <p className="text-lg font-bold tracking-tight">
+                    {order.user.name}
+                  </p>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <Mail size={14} /> {order.user.email}
+                  </div>
+                </div>
+              </Motion.div>
 
-          <div className="bg-white p-6 rounded-lg border shadow-sm">
-            <h2 className="text-xl font-bold mb-4 border-b pb-2">
-              Payment Method
-            </h2>
-            <p className="text-gray-700 mb-4">
-              <strong className="font-semibold">Method: </strong>
-              {order.paymentMethod}
-            </p>
-            {order.isPaid ? (
-              <Message variant="success">
-                Paid on {order.paidAt.substring(0, 10)}
-              </Message>
-            ) : (
-              <Message variant="danger">Not Paid</Message>
-            )}
-          </div>
+              <Motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="bg-secondary/10 border rounded-4xl p-8"
+              >
+                <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-6 flex items-center gap-2">
+                  <MapPin size={14} /> Delivery Address
+                </h3>
+                <p className="text-sm font-medium leading-relaxed">
+                  {order.shippingAddress.street}
+                  <br />
+                  {order.shippingAddress.city},{" "}
+                  {order.shippingAddress.postalCode}
+                  <br />
+                  {order.shippingAddress.country}
+                </p>
+              </Motion.div>
+            </div>
 
-          <div className="bg-white p-6 rounded-lg border shadow-sm">
-            <h2 className="text-xl font-bold mb-4 border-b pb-2">
-              Order Items
-            </h2>
-            {order.orderItems.length === 0 ? (
-              <Message>Order is empty</Message>
-            ) : (
-              <div className="space-y-4">
+            {/* Status Section */}
+            <Motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="bg-secondary/10 border rounded-4xl p-8 md:p-10"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                  <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-6">
+                    Payment Tracking
+                  </h3>
+                  {order.isPaid ? (
+                    <div className="flex items-center gap-3 text-green-600 bg-green-500/5 p-4 rounded-2xl border border-green-500/10">
+                      <CheckCircle2 size={20} />
+                      <div>
+                        <p className="text-sm font-bold">Paid Securely</p>
+                        <p className="text-[10px] font-medium opacity-80 uppercase tracking-widest">
+                          {new Date(order.paidAt).toLocaleDateString()}
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-3 text-destructive bg-destructive/5 p-4 rounded-2xl border border-destructive/10">
+                      <AlertCircle size={20} />
+                      <div>
+                        <p className="text-sm font-bold">Unpaid Transaction</p>
+                        <p className="text-[10px] font-medium opacity-80 uppercase tracking-widest">
+                          Awaiting Funds
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div>
+                  <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-6">
+                    Logistics Status
+                  </h3>
+                  <div className="flex items-center gap-3 text-primary bg-primary/5 p-4 rounded-2xl border border-primary/10">
+                    <Truck size={20} />
+                    <div>
+                      <p className="text-sm font-bold uppercase tracking-tight">
+                        {order.orderStatus}
+                      </p>
+                      <p className="text-[10px] font-medium opacity-80 uppercase tracking-widest">
+                        {order.isDelivered
+                          ? `Arrived on ${new Date(order.deliveredAt).toLocaleDateString()}`
+                          : "In Transit"}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Motion.div>
+
+            {/* Order Items */}
+            <Motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="bg-secondary/10 border rounded-4xl p-8 md:p-10"
+            >
+              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-10 pb-4 border-b">
+                Acquired Pieces
+              </h2>
+              <div className="space-y-8">
                 {order.orderItems.map((item, index) => (
-                  <div key={index} className="flex items-center space-x-4">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-16 h-16 object-contain rounded bg-gray-50 border"
-                    />
-                    <Link
-                      to={`/product/${item.product._id}`}
-                      className="flex-1 hover:text-teal-600 text-gray-800 line-clamp-2 text-sm font-medium"
-                    >
-                      {item.name}
-                    </Link>
-                    <div className="font-medium text-gray-700">
-                      {item.qty} x ${item.price.toFixed(2)} = $
-                      {(item.qty * item.price).toFixed(2)}
+                  <div key={index} className="flex gap-8 items-center group">
+                    <div className="w-24 h-28 bg-background rounded-3xl border p-2 overflow-hidden shrink-0">
+                      <img
+                        src={item.image}
+                        className="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-700"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-xl font-bold tracking-tighter mb-2 uppercase">
+                        {item.name}
+                      </h4>
+                      <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">
+                        {item.qty} Unit(s) × ₹{item.price.toLocaleString()}
+                      </p>
+                    </div>
+                    <div className="text-2xl font-medium tracking-tight">
+                      ₹{(item.qty * item.price).toLocaleString()}
                     </div>
                   </div>
                 ))}
               </div>
-            )}
+            </Motion.div>
           </div>
-        </div>
 
-        <div>
-          <div className="bg-white p-6 rounded-lg border shadow-sm sticky top-24">
-            <h2 className="text-xl font-bold mb-4 border-b pb-2">
-              Order Summary
-            </h2>
-            <div className="space-y-3 mb-6">
-              <div className="flex justify-between text-gray-600">
-                <span>Items:</span>
-                <span>${order.itemsPrice.toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between text-gray-600">
-                <span>Shipping:</span>
-                <span>${order.shippingPrice.toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between text-gray-600 border-b pb-3">
-                <span>Tax (15%):</span>
-                <span>${order.taxPrice.toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between font-bold text-lg text-gray-900">
-                <span>Total:</span>
-                <span>${order.totalPrice.toFixed(2)}</span>
-              </div>
-            </div>
+          {/* Invoice Summary Card */}
+          <div className="lg:col-span-4">
+            <Motion.div
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="bg-foreground text-background rounded-4xl p-10 md:p-12 sticky top-32 shadow-2xl"
+            >
+              <h2 className="text-3xl font-bold tracking-tighter mb-10">
+                Invoice
+              </h2>
 
-            {!order.isPaid && (
-              <div>
-                {loadingPay && <Loader fullScreen={false} />}
-                {!sdkReady || loadingConfig ? (
-                  <Loader fullScreen={false} />
-                ) : (
+              <div className="space-y-6">
+                <div className="flex justify-between items-center opacity-40">
+                  <span className="text-[10px] font-bold uppercase tracking-widest">
+                    Net Value
+                  </span>
+                  <span className="text-lg font-medium">
+                    ₹{order.itemsPrice.toLocaleString()}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center opacity-40">
+                  <span className="text-[10px] font-bold uppercase tracking-widest">
+                    Logistics
+                  </span>
+                  <span className="text-lg font-medium">
+                    ₹{order.shippingPrice.toLocaleString()}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center opacity-40">
+                  <span className="text-[10px] font-bold uppercase tracking-widest">
+                    Surcharge (Tax)
+                  </span>
+                  <span className="text-lg font-medium">
+                    ₹{order.taxPrice.toLocaleString()}
+                  </span>
+                </div>
+
+                <div className="h-px bg-background/10 my-8" />
+
+                <div className="flex justify-between items-end">
+                  <span className="text-[10px] font-bold uppercase tracking-widest mb-1 opacity-60">
+                    Total Amount
+                  </span>
+                  <span className="text-5xl font-bold tracking-tighter">
+                    ₹{order.totalPrice.toLocaleString()}
+                  </span>
+                </div>
+              </div>
+
+              {!order.isPaid && (
+                <div className="mt-12 space-y-4">
                   <button
                     onClick={displayRazorpay}
                     disabled={loadingRazorpayOrder}
-                    className="w-full bg-[#3399cc] hover:bg-[#287aa3] text-white font-bold py-3 px-4 rounded transition-colors flex justify-center items-center shadow-md mb-2"
+                    className="w-full bg-background text-foreground font-bold py-6 rounded-2xl shadow-xl hover:opacity-90 transition-all flex justify-center items-center gap-3 group active:scale-[0.98]"
                   >
-                    Pay with Razorpay
+                    {loadingRazorpayOrder ? (
+                      <Loader className="w-6 h-6" />
+                    ) : (
+                      <>
+                        Complete Payment{" "}
+                        <CreditCard
+                          size={20}
+                          className="group-hover:rotate-12 transition-transform"
+                        />
+                      </>
+                    )}
                   </button>
-                )}
-              </div>
-            )}
+                  <p className="text-center text-[10px] font-bold opacity-30 uppercase tracking-widest">
+                    Protected by 256-bit Bank Encryption
+                  </p>
+                </div>
+              )}
+            </Motion.div>
           </div>
         </div>
       </div>

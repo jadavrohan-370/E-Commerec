@@ -3,15 +3,16 @@ const router = express.Router();
 import {
   getProducts,
   getProductById,
-  getTopProducts,
   createProduct,
   updateProduct,
   deleteProduct,
+  getTrendingProducts,
 } from "../controllers/productController.js";
 import { protect, admin } from "../middlewares/authMiddleware.js";
 
 router.route("/").get(getProducts).post(protect, admin, createProduct);
-router.get("/top", getTopProducts);
+router.get("/trending", getTrendingProducts);
+
 router
   .route("/:id")
   .get(getProductById)

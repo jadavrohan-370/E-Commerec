@@ -1,39 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { User, Package, Loader2, CheckCircle2, XCircle } from "lucide-react";
+import { User, Package, Loader2, CheckCircle2, XCircle, Settings, ChevronRight, ExternalLink } from "lucide-react";
 import { useProfileMutation } from "../store/slices/usersApiSlice";
 import { useGetMyOrdersQuery } from "../store/slices/ordersApiSlice";
 import { setCredentials } from "../store/slices/authSlice";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import { motion as Motion } from "framer-motion";
 
 const Profile = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const { userInfo } = useSelector((state) => state.auth);
+  const [prevId, setPrevId] = useState(userInfo?._id);
+  const [name, setName] = useState(userInfo?.name || "");
+  const [email, setEmail] = useState(userInfo?.email || "");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((state) => state.auth);
 
-  const [updateProfile, { isLoading: loadingUpdateProfile }] =
-    useProfileMutation();
+  const [updateProfile, { isLoading: loadingUpdateProfile }] = useProfileMutation();
   const {
     data: orders,
     isLoading: loadingOrders,
     error: errorOrders,
   } = useGetMyOrdersQuery();
 
-  useEffect(() => {
-    if (userInfo) {
-      // eslint-disable-next-line
-      setName(userInfo.name);
-      // eslint-disable-next-line
-      setEmail(userInfo.email);
-    }
-  }, [userInfo]);
+  if (userInfo?._id !== prevId) {
+    setPrevId(userInfo?._id);
+    setName(userInfo?.name || "");
+    setEmail(userInfo?.email || "");
+  }
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -48,7 +46,7 @@ const Profile = () => {
           password,
         }).unwrap();
         dispatch(setCredentials({ ...res }));
-        toast.success("Profile updated successfully");
+        toast.success("Account updated");
       } catch (err) {
         toast.error(err?.data?.message || err.error);
       }
@@ -56,172 +54,170 @@ const Profile = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto mt-10 grid grid-cols-1 lg:grid-cols-4 gap-8">
-      {/* Profile Form */}
-      <div className="lg:col-span-1 border border-gray-200 p-6 rounded-lg bg-white shadow-sm h-fit">
-        <div className="flex items-center space-x-3 mb-6 pb-4 border-b">
-          <User className="w-8 h-8 text-teal-600" />
-          <h2 className="text-2xl font-bold text-gray-800">User Profile</h2>
+    <div className="min-h-screen bg-background pt-24 pb-20">
+      <div className="container mx-auto px-4 max-w-7xl">
+        <div className="mb-12 border-b pb-8">
+           <h1 className="text-4xl md:text-5xl font-bold tracking-tighter">Account Dashboard</h1>
+           <p className="text-muted-foreground mt-2 font-medium">Manage your profile and track your orders.</p>
         </div>
 
-        <form onSubmit={submitHandler} className="space-y-4">
-          <div>
-            <label className="block text-gray-700 font-medium mb-1 text-sm">
-              Full Name
-            </label>
-            <input
-              type="text"
-              required
-              className="w-full p-2.5 border border-gray-300 rounded focus:ring-2 focus:ring-teal-400 focus:outline-none"
-              placeholder="Enter name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-
-          <div>
-            <label className="block text-gray-700 font-medium mb-1 text-sm">
-              Email Address
-            </label>
-            <input
-              type="email"
-              required
-              className="w-full p-2.5 border border-gray-300 rounded focus:ring-2 focus:ring-teal-400 focus:outline-none"
-              placeholder="Enter email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-
-          <div>
-            <label className="block text-gray-700 font-medium mb-1 text-sm">
-              Update Password
-            </label>
-            <input
-              type="password"
-              className="w-full p-2.5 border border-gray-300 rounded focus:ring-2 focus:ring-teal-400 focus:outline-none"
-              placeholder="Enter new password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-
-          <div>
-            <label className="block text-gray-700 font-medium mb-1 text-sm">
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              className="w-full p-2.5 border border-gray-300 rounded focus:ring-2 focus:ring-teal-400 focus:outline-none"
-              placeholder="Confirm new password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={loadingUpdateProfile}
-            className="w-full mt-4 bg-teal-500 hover:bg-teal-600 text-white font-bold py-2.5 px-4 rounded transition-colors flex justify-center items-center"
-          >
-            {loadingUpdateProfile ? (
-              <Loader2 className="animate-spin w-5 h-5 mx-auto" />
-            ) : (
-              "Update Profile"
-            )}
-          </button>
-        </form>
-      </div>
-
-      {/* Orders Table */}
-      <div className="lg:col-span-3 border border-gray-200 p-6 rounded-lg bg-white shadow-sm">
-        <div className="flex items-center space-x-3 mb-6 pb-4 border-b">
-          <Package className="w-8 h-8 text-teal-600" />
-          <h2 className="text-2xl font-bold text-gray-800">My Orders</h2>
-        </div>
-
-        {loadingOrders ? (
-          <Loader />
-        ) : errorOrders ? (
-          <Message variant="danger">
-            {errorOrders?.data?.message || errorOrders.error}
-          </Message>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    ID
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Date
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Total
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Paid
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Delivered
-                  </th>
-                  <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Action
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {orders.map((order) => (
-                  <tr
-                    key={order._id}
-                    className="hover:bg-gray-50 transition-colors"
-                  >
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {order._id.substring(0, 10)}...
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {order.createdAt.substring(0, 10)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      ${order.totalPrice.toFixed(2)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {order.isPaid ? (
-                        <CheckCircle2 className="w-5 h-5 text-green-500 inline" />
-                      ) : (
-                        <XCircle className="w-5 h-5 text-red-500 inline" />
-                      )}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {order.isDelivered ? (
-                        <CheckCircle2 className="w-5 h-5 text-green-500 inline" />
-                      ) : (
-                        <XCircle className="w-5 h-5 text-red-500 inline" />
-                      )}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                      <Link
-                        to={`/order/${order._id}`}
-                        className="bg-gray-100 hover:bg-teal-500 hover:text-white text-gray-700 py-1.5 px-3 rounded transition-colors"
-                      >
-                        Details
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            {orders.length === 0 && (
-              <div className="text-center py-10 text-gray-500">
-                You have no orders yet.
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          {/* Profile Form Sidebar */}
+          <div className="lg:col-span-4">
+            <Motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="bg-secondary/20 rounded-4xl border p-8 sticky top-32"
+            >
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center text-primary-foreground">
+                  <User size={32} />
+                </div>
+                <div>
+                   <h2 className="text-xl font-bold tracking-tight">{userInfo?.name}</h2>
+                   <p className="text-sm text-muted-foreground font-medium">{userInfo?.email}</p>
+                </div>
               </div>
-            )}
+
+              <form onSubmit={submitHandler} className="space-y-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Name</label>
+                  <input
+                    type="text"
+                    required
+                    className="w-full bg-background border-none rounded-xl px-4 py-3 focus:ring-1 focus:ring-primary/20 transition-all font-medium"
+                    placeholder="Enter name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Email</label>
+                  <input
+                    type="email"
+                    required
+                    className="w-full bg-background border-none rounded-xl px-4 py-3 focus:ring-1 focus:ring-primary/20 transition-all font-medium"
+                    placeholder="Enter email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">New Password</label>
+                  <input
+                    type="password"
+                    className="w-full bg-background border-none rounded-xl px-4 py-3 focus:ring-1 focus:ring-primary/20 transition-all font-medium"
+                    placeholder="Leave blank to keep"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Confirm New Password</label>
+                  <input
+                    type="password"
+                    className="w-full bg-background border-none rounded-xl px-4 py-3 focus:ring-1 focus:ring-primary/20 transition-all font-medium"
+                    placeholder="Confirm new password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loadingUpdateProfile}
+                  className="w-full bg-primary text-primary-foreground font-bold py-4 rounded-xl shadow-lg hover:opacity-90 transition-all flex justify-center items-center gap-2 active:scale-[0.98]"
+                >
+                  {loadingUpdateProfile ? (
+                    <Loader2 className="animate-spin w-5 h-5" />
+                  ) : (
+                    <>Update Profile <Settings size={18} /></>
+                  )}
+                </button>
+              </form>
+            </Motion.div>
           </div>
-        )}
+
+          {/* Orders Content */}
+          <div className="lg:col-span-8">
+            <Motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="space-y-8"
+            >
+              <div className="flex items-center justify-between mb-4">
+                 <h2 className="text-2xl font-bold tracking-tight flex items-center gap-3">
+                   <Package className="text-primary" /> Recent Orders
+                 </h2>
+                 <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                   {orders?.length || 0} Total Orders
+                 </span>
+              </div>
+
+              {loadingOrders ? (
+                <div className="py-20 flex justify-center"><Loader /></div>
+              ) : errorOrders ? (
+                <Message variant="danger">{errorOrders?.data?.message || errorOrders.error}</Message>
+              ) : (
+                <div className="flex flex-col gap-6">
+                  {orders.length > 0 ? (
+                    orders.map((order) => (
+                      <div 
+                        key={order._id}
+                        className="bg-secondary/10 border rounded-3xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-8 group hover:border-primary transition-all"
+                      >
+                         <div className="space-y-2">
+                            <div className="flex items-center gap-3">
+                               <span className="text-xs font-bold uppercase tracking-widest px-2 py-1 bg-secondary rounded-md">#{order._id.substring(0, 10)}</span>
+                               <span className="text-xs font-medium text-muted-foreground">{new Date(order.createdAt).toLocaleDateString()}</span>
+                            </div>
+                            <div className="text-2xl font-bold tracking-tight">₹{order.totalPrice.toLocaleString()}</div>
+                         </div>
+
+                         <div className="flex flex-wrap items-center gap-6">
+                            <StatusBadge label="Paid" success={order.isPaid} />
+                            <StatusBadge label="Delivered" success={order.isDelivered} />
+                            
+                            <Link 
+                              to={`/order/${order._id}`}
+                              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-primary hover:gap-3 transition-all"
+                            >
+                               View Details <ExternalLink size={14} />
+                            </Link>
+                         </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="py-20 text-center bg-secondary/10 rounded-4xl border border-dashed border-muted-foreground/30">
+                       <Package size={48} className="mx-auto text-muted-foreground/30 mb-4" />
+                       <h3 className="text-xl font-bold text-muted-foreground">No orders placed yet.</h3>
+                       <Link to="/products" className="text-primary font-bold hover:underline mt-4 inline-block">Explore our catalog</Link>
+                    </div>
+                  )}
+                </div>
+              )}
+            </Motion.div>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
+
+const StatusBadge = ({ label, success }) => (
+  <div className="flex items-center gap-2 px-4 py-2 bg-background border rounded-full">
+    {success ? (
+      <CheckCircle2 size={16} className="text-green-500" />
+    ) : (
+      <XCircle size={16} className="text-destructive" />
+    )}
+    <span className={`text-[10px] font-bold uppercase tracking-widest ${success ? 'text-green-600' : 'text-destructive/80'}`}>
+      {success ? `Confirmed ${label}` : `Pending ${label}`}
+    </span>
+  </div>
+);
 
 export default Profile;

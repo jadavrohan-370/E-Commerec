@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import users from "./data/users.js";
-import products from "./data/products.js";
 import User from "./models/userModel.js";
 import Product from "./models/productModel.js";
 import Order from "./models/orderModel.js";
+import UserActivity from "./models/userActivityModel.js";
 import connectDB from "./config/db.js";
 import { indexProduct } from "./services/elasticsearch.js";
+import { generateProducts } from "./utils/generateProducts.js";
 
 dotenv.config();
 
@@ -17,24 +18,27 @@ const importData = async () => {
     await Order.deleteMany();
     await Product.deleteMany();
     await User.deleteMany();
+    await UserActivity.deleteMany();
 
     const createdUsers = await User.insertMany(users);
-
     const adminUser = createdUsers[0]._id;
 
-    const sampleProducts = products.map((product) => {
-      return { ...product, user: adminUser };
-    });
+    console.log("Generating 1000 products...");
+    const products = generateProducts(1000, adminUser);
 
-    const insertedProducts = await Product.insertMany(sampleProducts);
+    console.log("Inserting products to MongoDB...");
+    const insertedProducts = await Product.insertMany(products);
 
-    // Index into elasticsearch
     console.log("Indexing products to Elasticsearch...");
-    for (const prod of insertedProducts) {
-      await indexProduct(prod);
+    // We can't index 1000 products synchronously easily if ES is not running or slow, 
+    // but we'll try in batches of 100
+    for (let i = 0; i < insertedProducts.length; i += 100) {
+      const batch = insertedProducts.slice(i, i + 100);
+      await Promise.all(batch.map(prod => indexProduct(prod)));
+      console.log(`Indexed ${i + batch.length} products...`);
     }
 
-    console.log("Data Imported!");
+    console.log("Data Imported Successfully!");
     process.exit();
   } catch (error) {
     console.error(`Error: ${error.message}`);
@@ -47,6 +51,7 @@ const destroyData = async () => {
     await Order.deleteMany();
     await Product.deleteMany();
     await User.deleteMany();
+    await UserActivity.deleteMany();
 
     console.log("Data Destroyed!");
     process.exit();

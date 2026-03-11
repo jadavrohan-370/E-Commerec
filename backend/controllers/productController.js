@@ -1,70 +1,89 @@
-
 import asyncHandler from "express-async-handler";
-import mongoose from "mongoose";
 import Product from "../models/productModel.js";
-import { searchProductsES } from "../services/elasticsearch.js";
+import UserActivity from "../models/userActivityModel.js";
+import { indexProduct, deleteProductFromES } from "../services/elasticsearch.js";
+import { getFromCache, setInCache, deleteFromCache } from "../services/redisCacheService.js";
+import jwt from "jsonwebtoken";
+import User from "../models/userModel.js";
 
-// @desc    Fetch all products with pagination and search
+// @desc    Fetch all products with pagination and filter
 // @route   GET /api/products
 // @access  Public
-
 const getProducts = asyncHandler(async (req, res) => {
-  const pageSize = Number(req.query.pageSize) || 12;
-  const page = Number(req.query.pageNumber) || 1;
+  const limit = Number(req.query.limit) || 20;
+  const page = Number(req.query.page) || 1;
 
-  const keyword = req.query.keyword;
-  let query = {};
-
-  if (keyword) {
-    // Try elasticsearch first
-    const esResults = await searchProductsES(keyword);
-    if (esResults && esResults.length > 0) {
-      query = { _id: { $in: esResults } };
-    } else {
-      // Fallback to mongo text search regex
-      query = {
-        name: {
-          $regex: keyword,
-          $options: "i",
-        },
-      };
-    }
+  const query = {};
+  if (req.query.category) query.category = req.query.category;
+  if (req.query.brand) query.brand = req.query.brand;
+  if (req.query.rating) query.rating = { $gte: Number(req.query.rating) };
+  if (req.query.minPrice || req.query.maxPrice) {
+    query.price = {};
+    if (req.query.minPrice) query.price.$gte = Number(req.query.minPrice);
+    if (req.query.maxPrice) query.price.$lte = Number(req.query.maxPrice);
   }
 
-  // Handle category filtering
-  if (req.query.category) {
-    query.category = req.query.category;
-  }
+  const cacheKey = `products_p${page}_l${limit}_${JSON.stringify(query)}`;
+  const cached = await getFromCache(cacheKey);
+  if (cached) return res.json(cached);
 
-  // Handle brand filtering
-  if (req.query.brand) {
-    query.brand = req.query.brand;
-  }
+  const totalProducts = await Product.countDocuments(query);
+  const products = await Product.find(query)
+    .limit(limit)
+    .skip(limit * (page - 1))
+    .sort({ createdAt: -1 });
 
-  const count = await Product.countDocuments({ ...query });
-  const products = await Product.find({ ...query })
-    .limit(pageSize)
-    .skip(pageSize * (page - 1));
+  const response = {
+    page,
+    limit,
+    totalProducts,
+    products,
+  };
 
-  res.json({ products, page, pages: Math.ceil(count / pageSize), count });
+  await setInCache(cacheKey, response, 300); // 5 mins cache
+  res.json(response);
 });
 
 // @desc    Fetch single product
 // @route   GET /api/products/:id
 // @access  Public
 const getProductById = asyncHandler(async (req, res) => {
-  const id = req.params.id;
+  const productId = req.params.id;
+  const cacheKey = `product_${productId}`;
+  let product = await getFromCache(cacheKey);
 
-  // If the id is not a valid ObjectId, immediately return 404
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    res.status(404);
-    throw new Error("Product not found");
+  if (!product) {
+    product = await Product.findById(productId);
   }
 
-  const product = await Product.findById(id);
-
   if (product) {
-    return res.json(product);
+    // Increment views asynchronously
+    Product.findByIdAndUpdate(productId, { $inc: { viewsCount: 1 } }).exec();
+    
+    // TRACK USER ACTIVITY IF LOGGED IN
+    const token = req.cookies.jwt;
+    if (token) {
+      try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const userId = decoded.userId;
+        
+        await UserActivity.findOneAndUpdate(
+          { userId },
+          { 
+            $addToSet: { 
+              viewedProducts: productId,
+              searchedCategories: product.category 
+            } 
+          },
+          { upsert: true }
+        );
+      } catch (err) {
+        // Silently fail if token invalid during non-protected route
+      }
+    }
+
+    await setInCache(cacheKey, product, 600);
+    res.json(product);
   } else {
     res.status(404);
     throw new Error("Product not found");
@@ -75,16 +94,20 @@ const getProductById = asyncHandler(async (req, res) => {
 // @route   POST /api/products
 // @access  Private/Admin
 const createProduct = asyncHandler(async (req, res) => {
+  const { name, brand, category, subCategory, price, stock, description, specifications, images, warranty } = req.body;
+
   const product = new Product({
-    name: "Sample name",
-    price: 0,
+    name,
+    brand,
+    category,
+    subCategory,
+    price,
+    stock,
+    description,
+    specifications,
+    images: images || [],
+    warranty,
     user: req.user._id,
-    image: "/images/sample.jpg",
-    brand: "Sample brand",
-    category: "Sample category",
-    countInStock: 0,
-    numReviews: 0,
-    description: "Sample description",
   });
 
   const createdProduct = await product.save();
@@ -96,22 +119,15 @@ const createProduct = asyncHandler(async (req, res) => {
 // @route   PUT /api/products/:id
 // @access  Private/Admin
 const updateProduct = asyncHandler(async (req, res) => {
-  const { name, price, description, image, brand, category, countInStock } =
-    req.body;
-
   const product = await Product.findById(req.params.id);
 
   if (product) {
-    product.name = name;
-    product.price = price;
-    product.description = description;
-    product.images = image ? [image] : product.images; // simple image update
-    product.brand = brand;
-    product.category = category;
-    product.countInStock = countInStock;
-
+    Object.assign(product, req.body);
     const updatedProduct = await product.save();
+    
     await indexProduct(updatedProduct);
+    await deleteFromCache(`product_${req.params.id}`);
+    
     res.json(updatedProduct);
   } else {
     res.status(404);
@@ -127,6 +143,8 @@ const deleteProduct = asyncHandler(async (req, res) => {
 
   if (product) {
     await Product.deleteOne({ _id: product._id });
+    await deleteProductFromES(product._id);
+    await deleteFromCache(`product_${req.params.id}`);
     res.json({ message: "Product removed" });
   } else {
     res.status(404);
@@ -134,19 +152,12 @@ const deleteProduct = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Get top rated products
-// @route   GET /api/products/top
-// @access  Public
-const getTopProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({}).sort({ rating: -1 }).limit(6);
-  res.json(products);
-});
-
 export {
   getProducts,
   getProductById,
-  getTopProducts,
   createProduct,
   updateProduct,
   deleteProduct,
 };
+
+export { getTrendingProducts } from "./recommendationController.js";

@@ -1,8 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
@@ -15,6 +16,9 @@ import Payment from "./pages/Payment";
 import PlaceOrder from "./pages/PlaceOrder";
 import Order from "./pages/Order";
 import Profile from "./pages/Profile";
+import Categories from "./pages/Categories";
+import Deals from "./pages/Deals";
+import WhatsNew from "./pages/WhatsNew";
 
 import AdminRoute from "./components/AdminRoute";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -23,18 +27,25 @@ import ProductList from "./pages/admin/ProductList";
 import ProductEdit from "./pages/admin/ProductEdit";
 import UserList from "./pages/admin/UserList";
 import UserEdit from "./pages/admin/UserEdit";
+import SmoothScroll from "./components/SmoothScroll";
 
 function AppContent() {
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+
   return (
-    <div className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+    <div className="flex flex-col min-h-screen bg-background text-foreground transition-colors duration-300">
       <Header />
 
-      <main className="grow container mx-auto px-4 py-8">
+      <main className={`grow ${isHomePage ? "" : "container mx-auto px-4 py-12"}`}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/products" element={<ProductListing />} />
+          <Route path="/categories" element={<Categories />} />
+          <Route path="/deals" element={<Deals />} />
+          <Route path="/new" element={<WhatsNew />} />
           <Route path="/category/:category" element={<ProductListing />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
@@ -61,22 +72,7 @@ function AppContent() {
         </Routes>
       </main>
 
-      <footer className="bg-slate-900 text-slate-400 text-center p-6 border-t border-slate-800">
-          <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-sm">
-            <p>
-              &copy; {new Date().getFullYear()} NexNova Croma Store. All rights
-              reserved.
-            </p>
-            <div className="flex space-x-4">
-              <a href="#" className="hover:text-primary">
-                Privacy Policy
-              </a>
-              <a href="#" className="hover:text-primary">
-                Terms of Service
-              </a>
-            </div>
-          </div>
-        </footer>
+      <Footer />
     </div>
   );
 }
@@ -84,10 +80,24 @@ function AppContent() {
 function App() {
   return (
     <Router>
-      <AppContent />
-      <ToastContainer position="bottom-right" />
+      <SmoothScroll>
+        <AppContent />
+        <ToastContainer 
+          position="bottom-right" 
+          theme="colored"
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+      </SmoothScroll>
     </Router>
   );
 }
 
 export default App;
+
+
