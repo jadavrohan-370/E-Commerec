@@ -175,7 +175,7 @@ const PlaceOrder = () => {
               </h2>
 
               <div className="space-y-6">
-                <div className="flex justify-between items-center opacity-70">
+                <div className="flex justify-between items-center gap-4 opacity-70 flex-wrap">
                   <span className="text-xs font-bold uppercase tracking-widest">
                     Sub-bag Total
                   </span>
@@ -183,7 +183,7 @@ const PlaceOrder = () => {
                     ₹{Number(itemsPrice).toLocaleString()}
                   </span>
                 </div>
-                <div className="flex justify-between items-center opacity-70">
+                <div className="flex justify-between items-center gap-4 opacity-70 flex-wrap">
                   <span className="text-xs font-bold uppercase tracking-widest">
                     Courier (Global)
                   </span>
@@ -191,7 +191,7 @@ const PlaceOrder = () => {
                     {Number(shippingPrice) === 0 ? "FREE" : `₹${shippingPrice}`}
                   </span>
                 </div>
-                <div className="flex justify-between items-center opacity-70">
+                <div className="flex justify-between items-center gap-4 opacity-70 flex-wrap">
                   <span className="text-xs font-bold uppercase tracking-widest">
                     Est. Taxes (18%)
                   </span>
@@ -202,11 +202,11 @@ const PlaceOrder = () => {
 
                 <div className="h-px bg-white/20 my-8" />
 
-                <div className="flex justify-between items-center">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                   <span className="text-sm font-bold uppercase tracking-widest">
                     Total to Pay
                   </span>
-                  <span className="text-5xl font-bold tracking-tighter">
+                  <span className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter break-all">
                     ₹{Number(totalPrice).toLocaleString()}
                   </span>
                 </div>

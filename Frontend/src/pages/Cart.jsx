@@ -3,8 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Trash2, ArrowRight, ShoppingBag, Minus, Plus, ChevronLeft } from "lucide-react";
 import { addToCart, removeFromCart } from "../store/slices/cartSlice";
-import Message from "../components/Message";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion as Motion, AnimatePresence } from "framer-motion";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -42,7 +41,7 @@ const Cart = () => {
         </div>
 
         {cartItems.length === 0 ? (
-          <motion.div 
+          <Motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="flex flex-col items-center justify-center py-32 text-center"
@@ -60,14 +59,14 @@ const Cart = () => {
             >
               Start Searching
             </Link>
-          </motion.div>
+          </Motion.div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
             {/* Cart Items */}
             <div className="lg:col-span-8 flex flex-col gap-8">
               <AnimatePresence mode="popLayout">
                 {cartItems.map((item) => (
-                  <motion.div
+                  <Motion.div
                     layout
                     initial={{ opacity: 0, scale: 0.98 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -132,7 +131,7 @@ const Cart = () => {
                         </div>
                       </div>
                     </div>
-                  </motion.div>
+                  </Motion.div>
                 ))}
               </AnimatePresence>
             </div>
@@ -143,24 +142,24 @@ const Cart = () => {
                 <h2 className="text-3xl font-bold tracking-tighter mb-10">Summary</h2>
 
                 <div className="space-y-6">
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center gap-4 flex-wrap">
                     <span className="text-sm font-medium text-muted-foreground uppercase tracking-widest">Subtotal</span>
                     <span className="text-xl font-medium text-foreground">₹{subtotal.toLocaleString()}</span>
                   </div>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center gap-4 flex-wrap">
                     <span className="text-sm font-medium text-muted-foreground uppercase tracking-widest">Shipping</span>
                     <span className="text-sm font-bold text-primary">COMPLIMENTARY</span>
                   </div>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center gap-4 flex-wrap">
                     <span className="text-sm font-medium text-muted-foreground uppercase tracking-widest">Tax</span>
                     <span className="text-sm font-medium">₹{(subtotal * 0.12).toLocaleString()}</span>
                   </div>
                   
                   <div className="h-px bg-border my-8" />
                   
-                  <div className="flex justify-between items-end">
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
                     <span className="text-sm font-bold uppercase tracking-widest mb-1">Total</span>
-                    <span className="text-4xl font-bold tracking-tighter">₹{(subtotal + subtotal * 0.12).toLocaleString()}</span>
+                    <span className="text-3xl md:text-4xl font-bold tracking-tighter break-all">₹{(subtotal + subtotal * 0.12).toLocaleString()}</span>
                   </div>
                 </div>
 

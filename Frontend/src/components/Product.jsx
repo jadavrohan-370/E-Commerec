@@ -1,8 +1,45 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ShoppingCart, Star } from "lucide-react";
+import { ShoppingCart, Star, Heart, Share2 } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { addToWishlist, removeFromWishlist } from "../store/slices/wishlistSlice";
 
 const Product = ({ product }) => {
+  const dispatch = useDispatch();
+  const { wishlistItems } = useSelector((state) => state.wishlist);
+  const isWishlisted = wishlistItems.find((x) => x._id === product._id);
+
+  const wishlistHandler = (e) => {
+    e.preventDefault();
+    if (isWishlisted) {
+      dispatch(removeFromWishlist(product._id));
+    } else {
+      dispatch(addToWishlist(product));
+    }
+  };
+
+  const shareHandler = async (e) => {
+    e.preventDefault();
+    const shareData = {
+      title: product.name,
+      text: `Check out this product: ${product.name}`,
+      url: `${window.location.origin}/product/${product._id}`,
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(`${window.location.origin}/product/${product._id}`);
+        toast.success("Link copied to clipboard");
+      }
+    } catch (err) {
+      if (err.name !== "AbortError") {
+        toast.error("Error sharing product");
+      }
+    }
+  };
   return (
     <div className="bg-background rounded-3xl transition-all duration-500 overflow-hidden border border-border flex flex-col h-full group hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1">
       <Link
@@ -19,7 +56,19 @@ const Product = ({ product }) => {
             SALE
           </div>
         )}
-        <div className="absolute top-4 right-4 translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all">
+        <div className="absolute top-4 right-4 translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all flex flex-col gap-2">
+          <button 
+            onClick={wishlistHandler}
+            className={`p-2 bg-background/80 backdrop-blur rounded-full shadow-lg transition-all active:scale-95 ${isWishlisted ? 'text-primary' : 'text-muted-foreground hover:text-primary'}`}
+          >
+            <Heart size={16} className={isWishlisted ? 'fill-primary' : ''} />
+          </button>
+          <button 
+            onClick={shareHandler}
+            className="p-2 bg-background/80 backdrop-blur rounded-full shadow-lg text-muted-foreground hover:text-primary transition-all active:scale-95"
+          >
+            <Share2 size={16} />
+          </button>
           <div className="p-2 bg-background/80 backdrop-blur rounded-full shadow-lg text-primary">
             <Star size={16} className="fill-current" />
           </div>

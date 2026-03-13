@@ -11,6 +11,7 @@ import Search from "./pages/Search";
 import ProductDetails from "./pages/ProductDetails";
 import ProductListing from "./pages/ProductListing";
 import Cart from "./pages/Cart";
+import Wishlist from "./pages/Wishlist";
 import Shipping from "./pages/Shipping";
 import Payment from "./pages/Payment";
 import PlaceOrder from "./pages/PlaceOrder";
@@ -48,6 +49,7 @@ function AppContent() {
           <Route path="/new" element={<WhatsNew />} />
           <Route path="/category/:category" element={<ProductListing />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/shipping" element={<Shipping />} />

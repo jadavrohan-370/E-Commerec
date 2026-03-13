@@ -18,6 +18,7 @@ import { motion as Motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
+  const { wishlistItems } = useSelector((state) => state.wishlist);
   const { userInfo } = useSelector((state) => state.auth);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -139,8 +140,13 @@ const Header = () => {
               <Search className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors ${!isScrolled && isTransparentPage ? 'text-white/50' : 'text-muted-foreground'}`} size={16} />
             </form>
 
-            <Link to="/wishlist" className={`p-2.5 rounded-full transition-all flex hover:scale-110 active:scale-95 ${!isScrolled && isTransparentPage ? 'text-white hover:bg-white/10' : 'text-foreground hover:bg-secondary'}`}>
+            <Link to="/wishlist" className={`p-2.5 rounded-full transition-all relative flex hover:scale-110 active:scale-95 ${!isScrolled && isTransparentPage ? 'text-white hover:bg-white/10' : 'text-foreground hover:bg-secondary'}`}>
               <Heart size={20} />
+              {wishlistItems.length > 0 && (
+                <span className="absolute top-0 right-0 bg-primary text-primary-foreground text-[10px] font-bold w-4.5 h-4.5 rounded-full flex items-center justify-center border-2 border-background scale-110">
+                  {wishlistItems.length}
+                </span>
+              )}
             </Link>
 
             <Link to="/cart" className={`p-2.5 rounded-full transition-all relative flex hover:scale-110 active:scale-95 ${!isScrolled && isTransparentPage ? 'text-white hover:bg-white/10' : 'text-foreground hover:bg-secondary'}`}>

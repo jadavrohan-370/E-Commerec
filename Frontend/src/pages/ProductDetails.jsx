@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../store/slices/cartSlice";
+import { addToWishlist, removeFromWishlist } from "../store/slices/wishlistSlice";
 import { fetchProductById } from "../api/productApi";
 import Rating from "../components/Rating";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import { toast } from "react-toastify";
 import {
   ShoppingCart,
   ShieldCheck,
@@ -23,6 +25,9 @@ const ProductDetails = () => {
   const { id: productId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { wishlistItems } = useSelector((state) => state.wishlist);
+  const isWishlisted = wishlistItems.find((x) => x._id === productId);
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -52,6 +57,36 @@ const ProductDetails = () => {
   const addToCartHandler = () => {
     dispatch(addToCart({ ...product, qty }));
     navigate("/cart");
+  };
+
+  const wishlistHandler = () => {
+    if (isWishlisted) {
+      dispatch(removeFromWishlist(product._id));
+    } else {
+      dispatch(addToWishlist(product));
+    }
+  };
+
+  const shareHandler = async () => {
+    const shareData = {
+      title: product?.name,
+      text: `Check out this product: ${product?.name}`,
+      url: window.location.href,
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+        toast.success("Shared successfully");
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        toast.success("Link copied to clipboard");
+      }
+    } catch (err) {
+      if (err.name !== "AbortError") {
+        toast.error("Error sharing product");
+      }
+    }
   };
 
   if (loading)
@@ -101,10 +136,16 @@ const ProductDetails = () => {
                 className="w-full h-full object-contain p-8 md:p-12 mix-blend-multiply transition-transform duration-1000"
               />
               <div className="absolute top-8 right-8 flex flex-col gap-4">
-                <button className="p-4 bg-background rounded-2xl shadow-xl hover:text-primary transition-all active:scale-95 border">
-                  <Heart size={20} />
+                <button 
+                  onClick={wishlistHandler}
+                  className={`p-4 bg-background rounded-2xl shadow-xl transition-all active:scale-95 border ${isWishlisted ? 'text-primary' : 'hover:text-primary'}`}
+                >
+                  <Heart size={20} className={isWishlisted ? 'fill-primary' : ''} />
                 </button>
-                <button className="p-4 bg-background rounded-2xl shadow-xl hover:text-primary transition-all active:scale-95 border">
+                <button 
+                  onClick={shareHandler}
+                  className="p-4 bg-background rounded-2xl shadow-xl hover:text-primary transition-all active:scale-95 border"
+                >
                   <Share2 size={20} />
                 </button>
               </div>
@@ -148,11 +189,11 @@ const ProductDetails = () => {
 
             <div className="flex items-baseline gap-6 mb-10 pb-10 border-b">
               <span className="text-5xl font-medium tracking-tighter">
-                ₹{(product?.discountPrice || product?.price).toLocaleString()}
+                ₹{(product?.discountPrice || product?.price || 0).toLocaleString()}
               </span>
               {product?.discountPrice < product?.price && (
                 <span className="text-xl text-muted-foreground line-through italic opacity-50">
-                  ₹{product?.price.toLocaleString()}
+                  ₹{(product?.price || 0).toLocaleString()}
                 </span>
               )}
             </div>

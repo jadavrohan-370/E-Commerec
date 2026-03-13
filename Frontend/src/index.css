@@ -51,7 +51,7 @@
     --border: hsl(240 5.9% 90%);
     --input: hsl(240 5.9% 90%);
     --ring: hsl(240 10% 3.9%);
-    --radius: 0.5rem;
+    --radius: 0;
   }
 
   .dark {
@@ -146,4 +146,21 @@ html.lenis {
 ::selection {
   background-color: var(--primary);
   color: var(--primary-foreground);
+}
+
+/* Force square corners globally */
+@layer utilities {
+  .rounded-none,
+  .rounded-sm,
+  .rounded,
+  .rounded-md,
+  .rounded-lg,
+  .rounded-xl,
+  .rounded-2xl,
+  .rounded-3xl,
+  .rounded-4xl,
+  [class*="rounded-"],
+  .rounded-full {
+    border-radius: 0 !important;
+  }
 }

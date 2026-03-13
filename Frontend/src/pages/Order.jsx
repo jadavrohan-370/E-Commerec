@@ -281,7 +281,7 @@ const Order = () => {
               </h2>
 
               <div className="space-y-6">
-                <div className="flex justify-between items-center opacity-40">
+                <div className="flex justify-between items-center gap-4 opacity-40 flex-wrap">
                   <span className="text-[10px] font-bold uppercase tracking-widest">
                     Net Value
                   </span>
@@ -289,7 +289,7 @@ const Order = () => {
                     ₹{order.itemsPrice.toLocaleString()}
                   </span>
                 </div>
-                <div className="flex justify-between items-center opacity-40">
+                <div className="flex justify-between items-center gap-4 opacity-40 flex-wrap">
                   <span className="text-[10px] font-bold uppercase tracking-widest">
                     Logistics
                   </span>
@@ -297,7 +297,7 @@ const Order = () => {
                     ₹{order.shippingPrice.toLocaleString()}
                   </span>
                 </div>
-                <div className="flex justify-between items-center opacity-40">
+                <div className="flex justify-between items-center gap-4 opacity-40 flex-wrap">
                   <span className="text-[10px] font-bold uppercase tracking-widest">
                     Surcharge (Tax)
                   </span>
@@ -308,11 +308,11 @@ const Order = () => {
 
                 <div className="h-px bg-background/10 my-8" />
 
-                <div className="flex justify-between items-end">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
                   <span className="text-[10px] font-bold uppercase tracking-widest mb-1 opacity-60">
                     Total Amount
                   </span>
-                  <span className="text-5xl font-bold tracking-tighter">
+                  <span className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter break-all">
                     ₹{order.totalPrice.toLocaleString()}
                   </span>
                 </div>
