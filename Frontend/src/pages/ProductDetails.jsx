@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../store/slices/cartSlice";
-import { addToWishlist, removeFromWishlist } from "../store/slices/wishlistSlice";
+import {
+  addToWishlist,
+  removeFromWishlist,
+} from "../store/slices/wishlistSlice";
 import { fetchProductById } from "../api/productApi";
 import Rating from "../components/Rating";
 import Loader from "../components/Loader";
@@ -15,11 +18,11 @@ import {
   Heart,
   Share2,
   ChevronRight,
-  Info,
   Star,
   Zap,
 } from "lucide-react";
 import { motion as Motion } from "framer-motion";
+import PropTypes from "prop-types";
 
 const ProductDetails = () => {
   const { id: productId } = useParams();
@@ -71,7 +74,7 @@ const ProductDetails = () => {
     const shareData = {
       title: product?.name,
       text: `Check out this product: ${product?.name}`,
-      url: window.location.href,
+      url: globalThis.location.href,
     };
 
     try {
@@ -79,7 +82,7 @@ const ProductDetails = () => {
         await navigator.share(shareData);
         toast.success("Shared successfully");
       } else {
-        await navigator.clipboard.writeText(window.location.href);
+        await navigator.clipboard.writeText(globalThis.location.href);
         toast.success("Link copied to clipboard");
       }
     } catch (err) {
@@ -136,13 +139,16 @@ const ProductDetails = () => {
                 className="w-full h-full object-contain p-8 md:p-12 mix-blend-multiply transition-transform duration-1000"
               />
               <div className="absolute top-8 right-8 flex flex-col gap-4">
-                <button 
+                <button
                   onClick={wishlistHandler}
-                  className={`p-4 bg-background rounded-2xl shadow-xl transition-all active:scale-95 border ${isWishlisted ? 'text-primary' : 'hover:text-primary'}`}
+                  className={`p-4 bg-background rounded-2xl shadow-xl transition-all active:scale-95 border ${isWishlisted ? "text-primary" : "hover:text-primary"}`}
                 >
-                  <Heart size={20} className={isWishlisted ? 'fill-primary' : ''} />
+                  <Heart
+                    size={20}
+                    className={isWishlisted ? "fill-primary" : ""}
+                  />
                 </button>
-                <button 
+                <button
                   onClick={shareHandler}
                   className="p-4 bg-background rounded-2xl shadow-xl hover:text-primary transition-all active:scale-95 border"
                 >
@@ -153,14 +159,15 @@ const ProductDetails = () => {
 
             {/* Gallery Thumbnails */}
             <div className="grid grid-cols-4 gap-4 mt-8">
-              {product?.images?.map((img, i) => (
+              {product?.images?.map((img) => (
                 <button
-                  key={i}
+                  key={img}
                   onClick={() => setMainImage(img)}
                   className={`aspect-square rounded-2xl bg-secondary/50 border overflow-hidden transition-all p-2 hover:border-primary ${mainImage === img ? "border-primary ring-2 ring-primary/20" : ""}`}
                 >
                   <img
                     src={img}
+                    alt={product?.name}
                     className="w-full h-full object-contain mix-blend-multiply"
                   />
                 </button>
@@ -172,7 +179,7 @@ const ProductDetails = () => {
           <div className="lg:col-span-5 flex flex-col pt-4">
             <div className="flex items-center justify-between mb-6">
               <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary px-4 py-2 bg-primary/10 rounded-xl border border-primary/20">
-                {product?.brand} // {product?.category}
+                {product?.brand} / {product?.category}
               </span>
               <div className="flex items-center gap-1">
                 <Star size={14} className="fill-primary text-primary" />
@@ -189,7 +196,12 @@ const ProductDetails = () => {
 
             <div className="flex items-baseline gap-6 mb-10 pb-10 border-b">
               <span className="text-5xl font-medium tracking-tighter">
-                ₹{(product?.discountPrice || product?.price || 0).toLocaleString()}
+                ₹
+                {(
+                  product?.discountPrice ||
+                  product?.price ||
+                  0
+                ).toLocaleString()}
               </span>
               {product?.discountPrice < product?.price && (
                 <span className="text-xl text-muted-foreground line-through italic opacity-50">
@@ -392,5 +404,11 @@ const DetailFeature = ({ icon, title, sub }) => (
     </div>
   </div>
 );
+
+DetailFeature.propTypes = {
+  icon: PropTypes.node.isRequired,
+  title: PropTypes.string.isRequired,
+  sub: PropTypes.string,
+};
 
 export default ProductDetails;

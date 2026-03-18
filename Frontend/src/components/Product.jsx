@@ -1,9 +1,13 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { ShoppingCart, Star, Heart, Share2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { addToWishlist, removeFromWishlist } from "../store/slices/wishlistSlice";
+import {
+  addToWishlist,
+  removeFromWishlist,
+} from "../store/slices/wishlistSlice";
 
 const Product = ({ product }) => {
   const dispatch = useDispatch();
@@ -24,14 +28,16 @@ const Product = ({ product }) => {
     const shareData = {
       title: product.name,
       text: `Check out this product: ${product.name}`,
-      url: `${window.location.origin}/product/${product._id}`,
+      url: `${globalThis.location.origin}/product/${product._id}`,
     };
 
     try {
       if (navigator.share) {
         await navigator.share(shareData);
       } else {
-        await navigator.clipboard.writeText(`${window.location.origin}/product/${product._id}`);
+        await navigator.clipboard.writeText(
+          `${globalThis.location.origin}/product/${product._id}`,
+        );
         toast.success("Link copied to clipboard");
       }
     } catch (err) {
@@ -57,13 +63,13 @@ const Product = ({ product }) => {
           </div>
         )}
         <div className="absolute top-4 right-4 translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all flex flex-col gap-2">
-          <button 
+          <button
             onClick={wishlistHandler}
-            className={`p-2 bg-background/80 backdrop-blur rounded-full shadow-lg transition-all active:scale-95 ${isWishlisted ? 'text-primary' : 'text-muted-foreground hover:text-primary'}`}
+            className={`p-2 bg-background/80 backdrop-blur rounded-full shadow-lg transition-all active:scale-95 ${isWishlisted ? "text-primary" : "text-muted-foreground hover:text-primary"}`}
           >
-            <Heart size={16} className={isWishlisted ? 'fill-primary' : ''} />
+            <Heart size={16} className={isWishlisted ? "fill-primary" : ""} />
           </button>
-          <button 
+          <button
             onClick={shareHandler}
             className="p-2 bg-background/80 backdrop-blur rounded-full shadow-lg text-muted-foreground hover:text-primary transition-all active:scale-95"
           >
@@ -112,6 +118,19 @@ const Product = ({ product }) => {
       </div>
     </div>
   );
+};
+
+Product.propTypes = {
+  product: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    images: PropTypes.arrayOf(PropTypes.string),
+    price: PropTypes.number.isRequired,
+    discountPrice: PropTypes.number,
+    category: PropTypes.string,
+    rating: PropTypes.number,
+    stock: PropTypes.number,
+  }).isRequired,
 };
 
 export default Product;
