@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion as Motion, AnimatePresence } from "framer-motion";
+import PropTypes from "prop-types";
 import {
   ArrowRight,
   Zap,
@@ -10,6 +11,10 @@ import {
 import { Link } from "react-router-dom";
 import HeroCanvas from "./HeroCanvas";
 import gsap from "gsap";
+
+const MotionDiv = Motion.div;
+const MotionH1 = Motion.h1;
+const MotionP = Motion.p;
 
 const Hero = ({ products = [], loading }) => {
   const containerRef = useRef(null);
@@ -30,8 +35,8 @@ const Hero = ({ products = [], loading }) => {
   useEffect(() => {
     const handleMouseMove = (e) => {
       const { clientX, clientY } = e;
-      const x = (clientX - window.innerWidth / 2) / 60;
-      const y = (clientY - window.innerHeight / 2) / 60;
+      const x = (clientX - globalThis.innerWidth / 2) / 60;
+      const y = (clientY - globalThis.innerHeight / 2) / 60;
 
       gsap.to(textRef.current, {
         x: x * 0.5,
@@ -64,8 +69,8 @@ const Hero = ({ products = [], loading }) => {
       }
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    globalThis.addEventListener("mousemove", handleMouseMove);
+    return () => globalThis.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   return (
@@ -82,7 +87,7 @@ const Hero = ({ products = [], loading }) => {
       <div className="container mx-auto px-4 z-10 flex flex-col lg:flex-row items-center gap-12 lg:gap-20 grow pb-12">
         {/* Textual Utility Content */}
         <div className="flex-1 text-center lg:text-left order-2 lg:order-1">
-          <Motion.div
+          <MotionDiv
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-8"
@@ -91,10 +96,10 @@ const Hero = ({ products = [], loading }) => {
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">
               Trending Collections 2026
             </span>
-          </Motion.div>
+          </MotionDiv>
 
           <div ref={textRef}>
-            <Motion.h1
+            <MotionH1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "circOut" }}
@@ -104,10 +109,10 @@ const Hero = ({ products = [], loading }) => {
               <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-purple-500 to-blue-600">
                 Experience<span className="text-foreground">.</span>
               </span>
-            </Motion.h1>
+            </MotionH1>
           </div>
 
-          <Motion.p
+          <MotionP
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -115,9 +120,9 @@ const Hero = ({ products = [], loading }) => {
           >
             Curating the finest electronics and lifestyle pieces for the digital
             connoisseur. absolute performance meets sculptural aesthetics.
-          </Motion.p>
+          </MotionP>
 
-          <Motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -161,7 +166,7 @@ const Hero = ({ products = [], loading }) => {
                 </div>
               </div>
             </div>
-          </Motion.div>
+          </MotionDiv>
         </div>
 
         {/* Dynamic Product Showcase */}
@@ -173,7 +178,7 @@ const Hero = ({ products = [], loading }) => {
                 className="aspect-square rounded-[60px] bg-secondary/20 animate-pulse"
               />
             ) : (
-              <Motion.div
+              <MotionDiv
                 key={activeProduct?._id || "default"}
                 initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
@@ -201,7 +206,7 @@ const Hero = ({ products = [], loading }) => {
                   />
 
                   {/* Floating Specs Labels */}
-                  <Motion.div
+                  <MotionDiv
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.5 }}
@@ -216,9 +221,9 @@ const Hero = ({ products = [], loading }) => {
                     <p className="text-xl font-black text-foreground">
                       ₹{activeProduct?.price.toLocaleString()}
                     </p>
-                  </Motion.div>
+                  </MotionDiv>
 
-                  <Motion.div
+                  <MotionDiv
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.7 }}
@@ -237,9 +242,9 @@ const Hero = ({ products = [], loading }) => {
                         </p>
                       </div>
                     </div>
-                  </Motion.div>
+                  </MotionDiv>
                 </Link>
-              </Motion.div>
+              </MotionDiv>
             )}
           </AnimatePresence>
         </div>
@@ -291,3 +296,14 @@ const FeatureItem = ({ icon, title, desc }) => (
 );
 
 export default Hero;
+
+Hero.propTypes = {
+  products: PropTypes.array,
+  loading: PropTypes.bool,
+};
+
+FeatureItem.propTypes = {
+  icon: PropTypes.node,
+  title: PropTypes.string,
+  desc: PropTypes.string,
+};

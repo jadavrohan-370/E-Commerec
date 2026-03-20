@@ -24,6 +24,8 @@ import {
 import { motion as Motion } from "framer-motion";
 import PropTypes from "prop-types";
 
+const MotionDiv = Motion.div;
+
 const ProductDetails = () => {
   const { id: productId } = useParams();
   const dispatch = useDispatch();
@@ -127,7 +129,7 @@ const ProductDetails = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 xl:gap-20">
           {/* Left Column: Media */}
           <div className="lg:col-span-7">
-            <Motion.div
+            <MotionDiv
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6 }}
@@ -155,7 +157,7 @@ const ProductDetails = () => {
                   <Share2 size={20} />
                 </button>
               </div>
-            </Motion.div>
+            </MotionDiv>
 
             {/* Gallery Thumbnails */}
             <div className="grid grid-cols-4 gap-4 mt-8">
@@ -302,7 +304,7 @@ const ProductDetails = () => {
               >
                 {tab}
                 {activeTab === tab && (
-                  <Motion.div
+                  <MotionDiv
                     layoutId="detail-tab"
                     className="absolute bottom-0 left-0 right-0 h-1 bg-primary"
                   />
@@ -313,7 +315,7 @@ const ProductDetails = () => {
 
           <div className="max-w-4xl">
             {activeTab === "description" && (
-              <Motion.div
+              <MotionDiv
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-8"
@@ -325,11 +327,11 @@ const ProductDetails = () => {
                 <p className="text-lg text-muted-foreground leading-relaxed">
                   {product?.description}
                 </p>
-              </Motion.div>
+              </MotionDiv>
             )}
 
             {activeTab === "specifications" && (
-              <Motion.div
+              <MotionDiv
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-10"
@@ -351,11 +353,11 @@ const ProductDetails = () => {
                     Standard flagship specifications apply.
                   </p>
                 )}
-              </Motion.div>
+              </MotionDiv>
             )}
 
             {activeTab === "reviews" && (
-              <Motion.div
+              <MotionDiv
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
               >
@@ -384,7 +386,7 @@ const ProductDetails = () => {
                     Product testing feedback from verified owners...
                   </p>
                 </div>
-              </Motion.div>
+              </MotionDiv>
             )}
           </div>
         </div>

@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// Pointing to our local scalable backend
-const API_BASE_URL = "http://localhost:5000/api";
+// Pointing to the Vercel proxy or local vite proxy
+const API_BASE_URL = "/api";
 
 const API = axios.create({
   baseURL: API_BASE_URL,
