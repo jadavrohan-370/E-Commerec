@@ -19,9 +19,9 @@ import { notFound, errorHandler } from "./middlewares/errorMiddleware.js";
 dotenv.config();
 
 // Connect to databases
-connectDB();
-connectRedis();
-checkElasticsearchConnection();
+// connectDB();
+// connectRedis();
+// checkElasticsearchConnection();
 
 const app = express();
 

@@ -26,19 +26,28 @@ const getPopularProducts = asyncHandler(async (req, res) => {
 // @route   GET /api/products/trending
 // @access  Public
 const getTrendingProducts = asyncHandler(async (req, res) => {
+  console.log("Fetching trending products...");
   const cacheKey = "trending_products";
   const cachedData = await getFromCache(cacheKey);
 
   if (cachedData) {
+    console.log("Returning trending products from cache");
     return res.json(cachedData);
   }
 
-  const products = await Product.find({})
-    .sort({ viewsCount: -1 })
-    .limit(10);
-
-  await setInCache(cacheKey, products, 1800); // cache for 30 mins
-  res.json(products);
+  try {
+    const products = await Product.find({})
+      .sort({ viewsCount: -1 })
+      .limit(Number(req.query.limit) || 10);
+    
+    console.log(`Found ${products.length} trending products`);
+    await setInCache(cacheKey, products, 1800);
+    res.json(products);
+  } catch (error) {
+    console.error("Error fetching trending products:", error);
+    res.status(500);
+    throw new Error(`Trending fetch failed: ${error.message}`);
+  }
 });
 
 // @desc    Get similar products

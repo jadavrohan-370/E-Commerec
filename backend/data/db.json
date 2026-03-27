@@ -1,76 +1,1404 @@
 {
   "products": [
     {
-      "name": "Airpods Wireless Bluetooth Headphones",
-      "image": "https://images.unsplash.com/photo-1606220838315-056192d5e927?q=80&w=800&auto=format&fit=crop",
-      "description": "Bluetooth technology lets you connect it with compatible devices wirelessly. High-quality AAC audio offers immersive listening experience. Built-in microphone allows you to take calls while working.",
-      "brand": "Apple",
-      "category": "Electronics",
-      "subCategory": "Audio",
-      "price": 89.99,
-      "countInStock": 10,
-      "rating": 4.5,
-      "numReviews": 12
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Haier Single Door 1",
+      "brand": "Haier",
+      "category": "Refrigerator",
+      "subCategory": "Single Door",
+      "price": 133874,
+      "discountPrice": 113792,
+      "rating": "4.4",
+      "numberOfReviews": 267,
+      "stock": 27,
+      "images": [
+        "https://images.unsplash.com/photo-1571175439180-6ac6043bc281?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Haier Refrigerator featuring latest Single Door technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "3 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-1-HA",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 174,
+      "viewsCount": 102,
+      "_id": "0000000000000000000prod1"
     },
     {
-      "name": "iPhone 13 Pro 256GB Memory",
-      "image": "https://images.unsplash.com/photo-1632661674596-618d8b64d641?q=80&w=800&auto=format&fit=crop",
-      "description": "Introducing the iPhone 13 Pro. A transformative triple-camera system that adds tons of capability without complexity. An unprecedented leap in battery life.",
-      "brand": "Apple",
-      "category": "Electronics",
-      "subCategory": "Mobile Phones",
-      "price": 1099.99,
-      "countInStock": 7,
-      "rating": 4.0,
-      "numReviews": 8
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Blue Star Window AC 2",
+      "brand": "Blue Star",
+      "category": "Air Conditioner",
+      "subCategory": "Window AC",
+      "price": 61965,
+      "discountPrice": 52670,
+      "rating": "4.8",
+      "numberOfReviews": 195,
+      "stock": 98,
+      "images": [
+        "https://images.unsplash.com/photo-1585338107529-13afc5f0171f?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1591185473233-2999b5a14643?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Blue Star Air Conditioner featuring latest Window AC technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "3 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-2-BL",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 702,
+      "viewsCount": 4110,
+      "_id": "0000000000000000000prod2"
     },
     {
-      "name": "Cannon EOS 80D DSLR Camera",
-      "image": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=800&auto=format&fit=crop",
-      "description": "Characterized by versatile imaging specs, the Canon EOS 80D further clarifies itself using a pair of robust focusing systems and an intuitive design.",
-      "brand": "Cannon",
-      "category": "Electronics",
-      "subCategory": "Cameras",
-      "price": 929.99,
-      "countInStock": 5,
-      "rating": 3.5,
-      "numReviews": 12
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Morphy Richards Grill 3",
+      "brand": "Morphy Richards",
+      "category": "Microwave Oven",
+      "subCategory": "Grill",
+      "price": 47838,
+      "discountPrice": 40662,
+      "rating": "4.8",
+      "numberOfReviews": 419,
+      "stock": 39,
+      "images": [
+        "https://images.unsplash.com/photo-1585659722982-7d634f37a851?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1574265366533-547ca9539796?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Morphy Richards Microwave Oven featuring latest Grill technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "4 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-3-MO",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 166,
+      "viewsCount": 3167,
+      "_id": "0000000000000000000prod3"
     },
     {
-      "name": "Sony Playstation 5 Digital Edition",
-      "image": "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?q=80&w=800&auto=format&fit=crop",
-      "description": "The ultimate home entertainment center starts with PlayStation. Whether you are into gaming, HD movies, television, music. Discover a deeper gaming experience.",
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Bosch Top Load 4",
+      "brand": "Bosch",
+      "category": "Washing Machine",
+      "subCategory": "Top Load",
+      "price": 82052,
+      "discountPrice": 69744,
+      "rating": "4.1",
+      "numberOfReviews": 546,
+      "stock": 4,
+      "images": [
+        "https://images.unsplash.com/photo-1626806819282-2c13b3ad5e81?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Bosch Washing Machine featuring latest Top Load technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "4 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-4-BO",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 4,
+      "viewsCount": 2428,
+      "_id": "0000000000000000000prod4"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Sony Smart TV 5",
       "brand": "Sony",
-      "category": "Electronics",
+      "category": "Television",
+      "subCategory": "Smart TV",
+      "price": 83541,
+      "discountPrice": 71009,
+      "rating": "4.4",
+      "numberOfReviews": 97,
+      "stock": 42,
+      "images": [
+        "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1509281373149-e957c6296406?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Sony Television featuring latest Smart TV technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "5 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-5-SO",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 11,
+      "viewsCount": 4026,
+      "_id": "0000000000000000000prod5"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Apple Fitness 6",
+      "brand": "Apple",
+      "category": "Smart Watch",
+      "subCategory": "Fitness",
+      "price": 89318,
+      "discountPrice": 75920,
+      "rating": "3.5",
+      "numberOfReviews": 348,
+      "stock": 33,
+      "images": [
+        "https://images.unsplash.com/photo-1544117518-30df16413a48?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1508685096489-7aacd1808068?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Apple Smart Watch featuring latest Fitness technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "4 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-6-AP",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 832,
+      "viewsCount": 839,
+      "_id": "0000000000000000000prod6"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Apple Budget 7",
+      "brand": "Apple",
+      "category": "Mobile Phone",
+      "subCategory": "Budget",
+      "price": 67978,
+      "discountPrice": 57781,
+      "rating": "4.2",
+      "numberOfReviews": 357,
+      "stock": 54,
+      "images": [
+        "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1523206489230-c012c64b2b48?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Apple Mobile Phone featuring latest Budget technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "3 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-7-AP",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 640,
+      "viewsCount": 1479,
+      "_id": "0000000000000000000prod7"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Daikin Window AC 8",
+      "brand": "Daikin",
+      "category": "Air Conditioner",
+      "subCategory": "Window AC",
+      "price": 67284,
+      "discountPrice": 57191,
+      "rating": "3.9",
+      "numberOfReviews": 212,
+      "stock": 72,
+      "images": [
+        "https://images.unsplash.com/photo-1585338107529-13afc5f0171f?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1591185473233-2999b5a14643?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Daikin Air Conditioner featuring latest Window AC technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "3 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-8-DA",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 709,
+      "viewsCount": 819,
+      "_id": "0000000000000000000prod8"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Xiaomi Budget 9",
+      "brand": "Xiaomi",
+      "category": "Mobile Phone",
+      "subCategory": "Budget",
+      "price": 26475,
+      "discountPrice": 22503,
+      "rating": "4.7",
+      "numberOfReviews": 442,
+      "stock": 0,
+      "images": [
+        "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1523206489230-c012c64b2b48?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Xiaomi Mobile Phone featuring latest Budget technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "4 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-9-XI",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 540,
+      "viewsCount": 3878,
+      "_id": "0000000000000000000prod9"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Garmin Luxury 10",
+      "brand": "Garmin",
+      "category": "Smart Watch",
+      "subCategory": "Luxury",
+      "price": 16372,
+      "discountPrice": 13916,
+      "rating": "4.7",
+      "numberOfReviews": 142,
+      "stock": 24,
+      "images": [
+        "https://images.unsplash.com/photo-1544117518-30df16413a48?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1508685096489-7aacd1808068?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Garmin Smart Watch featuring latest Luxury technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "3 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-10-GA",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 513,
+      "viewsCount": 4146,
+      "_id": "000000000000000000prod10"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "LG Window AC 11",
+      "brand": "LG",
+      "category": "Air Conditioner",
+      "subCategory": "Window AC",
+      "price": 133186,
+      "discountPrice": 113208,
+      "rating": "3.8",
+      "numberOfReviews": 218,
+      "stock": 79,
+      "images": [
+        "https://images.unsplash.com/photo-1585338107529-13afc5f0171f?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1591185473233-2999b5a14643?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium LG Air Conditioner featuring latest Window AC technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "4 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-11-LG",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 918,
+      "viewsCount": 2997,
+      "_id": "000000000000000000prod11"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Google Budget 12",
+      "brand": "Google",
+      "category": "Mobile Phone",
+      "subCategory": "Budget",
+      "price": 77744,
+      "discountPrice": 66082,
+      "rating": "3.8",
+      "numberOfReviews": 192,
+      "stock": 55,
+      "images": [
+        "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1523206489230-c012c64b2b48?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Google Mobile Phone featuring latest Budget technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "3 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-12-GO",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 195,
+      "viewsCount": 3162,
+      "_id": "000000000000000000prod12"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "LG Split AC 13",
+      "brand": "LG",
+      "category": "Air Conditioner",
+      "subCategory": "Split AC",
+      "price": 48068,
+      "discountPrice": 40857,
+      "rating": "4.5",
+      "numberOfReviews": 257,
+      "stock": 48,
+      "images": [
+        "https://images.unsplash.com/photo-1585338107529-13afc5f0171f?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1591185473233-2999b5a14643?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium LG Air Conditioner featuring latest Split AC technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "4 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-13-LG",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 312,
+      "viewsCount": 131,
+      "_id": "000000000000000000prod13"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "IFB Top Load 14",
+      "brand": "IFB",
+      "category": "Washing Machine",
+      "subCategory": "Top Load",
+      "price": 108348,
+      "discountPrice": 92095,
+      "rating": "4.9",
+      "numberOfReviews": 309,
+      "stock": 25,
+      "images": [
+        "https://images.unsplash.com/photo-1626806819282-2c13b3ad5e81?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium IFB Washing Machine featuring latest Top Load technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "3 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-14-IF",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 697,
+      "viewsCount": 2074,
+      "_id": "000000000000000000prod14"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "ASUS Business 15",
+      "brand": "ASUS",
+      "category": "Laptop",
+      "subCategory": "Business",
+      "price": 124253,
+      "discountPrice": 105615,
+      "rating": "5.0",
+      "numberOfReviews": 302,
+      "stock": 41,
+      "images": [
+        "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1517336713914-89b9388c0ef5?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium ASUS Laptop featuring latest Business technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "3 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-15-AS",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 894,
+      "viewsCount": 4044,
+      "_id": "000000000000000000prod15"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Blue Star Window AC 16",
+      "brand": "Blue Star",
+      "category": "Air Conditioner",
+      "subCategory": "Window AC",
+      "price": 62418,
+      "discountPrice": 53055,
+      "rating": "4.7",
+      "numberOfReviews": 343,
+      "stock": 94,
+      "images": [
+        "https://images.unsplash.com/photo-1585338107529-13afc5f0171f?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1591185473233-2999b5a14643?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Blue Star Air Conditioner featuring latest Window AC technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "5 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-16-BL",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 605,
+      "viewsCount": 3929,
+      "_id": "000000000000000000prod16"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Morphy Richards Convection 17",
+      "brand": "Morphy Richards",
+      "category": "Microwave Oven",
+      "subCategory": "Convection",
+      "price": 25810,
+      "discountPrice": 21938,
+      "rating": "4.1",
+      "numberOfReviews": 200,
+      "stock": 77,
+      "images": [
+        "https://images.unsplash.com/photo-1585659722982-7d634f37a851?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1574265366533-547ca9539796?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Morphy Richards Microwave Oven featuring latest Convection technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "5 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-17-MO",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 662,
+      "viewsCount": 3552,
+      "_id": "000000000000000000prod17"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Sony Home Theatre 18",
+      "brand": "Sony",
+      "category": "Speakers",
+      "subCategory": "Home Theatre",
+      "price": 130155,
+      "discountPrice": 110631,
+      "rating": "4.4",
+      "numberOfReviews": 229,
+      "stock": 87,
+      "images": [
+        "https://images.unsplash.com/photo-1545454675-3531b543be5d?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1589003077984-894e133dabab?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Sony Speakers featuring latest Home Theatre technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "4 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-18-SO",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 497,
+      "viewsCount": 796,
+      "_id": "000000000000000000prod18"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Whirlpool Side-by-Side 19",
+      "brand": "Whirlpool",
+      "category": "Refrigerator",
+      "subCategory": "Side-by-Side",
+      "price": 48434,
+      "discountPrice": 41168,
+      "rating": "4.1",
+      "numberOfReviews": 324,
+      "stock": 91,
+      "images": [
+        "https://images.unsplash.com/photo-1571175439180-6ac6043bc281?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Whirlpool Refrigerator featuring latest Side-by-Side technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "3 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-19-WH",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 703,
+      "viewsCount": 2424,
+      "_id": "000000000000000000prod19"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Apple Budget 20",
+      "brand": "Apple",
+      "category": "Mobile Phone",
+      "subCategory": "Budget",
+      "price": 64572,
+      "discountPrice": 54886,
+      "rating": "4.8",
+      "numberOfReviews": 460,
+      "stock": 98,
+      "images": [
+        "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1523206489230-c012c64b2b48?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Apple Mobile Phone featuring latest Budget technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "3 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-20-AP",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 363,
+      "viewsCount": 756,
+      "_id": "000000000000000000prod20"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Fossil Casual 21",
+      "brand": "Fossil",
+      "category": "Smart Watch",
+      "subCategory": "Casual",
+      "price": 52564,
+      "discountPrice": 44679,
+      "rating": "4.1",
+      "numberOfReviews": 139,
+      "stock": 56,
+      "images": [
+        "https://images.unsplash.com/photo-1544117518-30df16413a48?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1508685096489-7aacd1808068?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Fossil Smart Watch featuring latest Casual technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "4 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-21-FO",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 454,
+      "viewsCount": 2020,
+      "_id": "000000000000000000prod21"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Samsung Window AC 22",
+      "brand": "Samsung",
+      "category": "Air Conditioner",
+      "subCategory": "Window AC",
+      "price": 128498,
+      "discountPrice": 109223,
+      "rating": "4.9",
+      "numberOfReviews": 196,
+      "stock": 67,
+      "images": [
+        "https://images.unsplash.com/photo-1585338107529-13afc5f0171f?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1591185473233-2999b5a14643?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Samsung Air Conditioner featuring latest Window AC technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "4 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-22-SA",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 9,
+      "viewsCount": 3990,
+      "_id": "000000000000000000prod22"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Lenovo Gaming 23",
+      "brand": "Lenovo",
+      "category": "Laptop",
       "subCategory": "Gaming",
-      "price": 499.99,
-      "countInStock": 11,
-      "rating": 5.0,
-      "numReviews": 12
+      "price": 119207,
+      "discountPrice": 101325,
+      "rating": "3.7",
+      "numberOfReviews": 162,
+      "stock": 92,
+      "images": [
+        "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1517336713914-89b9388c0ef5?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Lenovo Laptop featuring latest Gaming technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "5 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-23-LE",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 109,
+      "viewsCount": 4235,
+      "_id": "000000000000000000prod23"
     },
     {
-      "name": "Logitech G-Series Gaming Mouse",
-      "image": "https://images.unsplash.com/photo-1615663245857-ac1eeb5304ba?q=80&w=800&auto=format&fit=crop",
-      "description": "Get a better handle on your games with this Logitech LIGHTSYNC gaming mouse. The six programmable buttons allow customization for a smooth playing experience.",
-      "brand": "Logitech",
-      "category": "Electronics",
-      "subCategory": "Accessories",
-      "price": 49.99,
-      "countInStock": 7,
-      "rating": 3.5,
-      "numReviews": 10
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Samsung Front Load 24",
+      "brand": "Samsung",
+      "category": "Washing Machine",
+      "subCategory": "Front Load",
+      "price": 147754,
+      "discountPrice": 125590,
+      "rating": "4.7",
+      "numberOfReviews": 279,
+      "stock": 82,
+      "images": [
+        "https://images.unsplash.com/photo-1626806819282-2c13b3ad5e81?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Samsung Washing Machine featuring latest Front Load technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "4 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-24-SA",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 419,
+      "viewsCount": 3343,
+      "_id": "000000000000000000prod24"
     },
     {
-      "name": "Amazon Echo Dot 3rd Generation",
-      "image": "https://images.unsplash.com/photo-1543512214-318c7553f230?q=80&w=800&auto=format&fit=crop",
-      "description": "Meet Echo Dot - Our most popular smart speaker with a fabric design. It is our most compact smart speaker that fits perfectly into small space.",
-      "brand": "Amazon",
-      "category": "Electronics",
-      "subCategory": "Smart Home",
-      "price": 29.99,
-      "countInStock": 0,
-      "rating": 4.0,
-      "numReviews": 12
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Voltas Split AC 25",
+      "brand": "Voltas",
+      "category": "Air Conditioner",
+      "subCategory": "Split AC",
+      "price": 133881,
+      "discountPrice": 113798,
+      "rating": "4.4",
+      "numberOfReviews": 133,
+      "stock": 76,
+      "images": [
+        "https://images.unsplash.com/photo-1585338107529-13afc5f0171f?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1591185473233-2999b5a14643?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Voltas Air Conditioner featuring latest Split AC technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "3 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-25-VO",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 347,
+      "viewsCount": 582,
+      "_id": "000000000000000000prod25"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "LG Window AC 26",
+      "brand": "LG",
+      "category": "Air Conditioner",
+      "subCategory": "Window AC",
+      "price": 60687,
+      "discountPrice": 51583,
+      "rating": "3.6",
+      "numberOfReviews": 210,
+      "stock": 71,
+      "images": [
+        "https://images.unsplash.com/photo-1585338107529-13afc5f0171f?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1591185473233-2999b5a14643?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium LG Air Conditioner featuring latest Window AC technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "4 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-26-LG",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 451,
+      "viewsCount": 3781,
+      "_id": "000000000000000000prod26"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Haier Double Door 27",
+      "brand": "Haier",
+      "category": "Refrigerator",
+      "subCategory": "Double Door",
+      "price": 88123,
+      "discountPrice": 74904,
+      "rating": "4.4",
+      "numberOfReviews": 190,
+      "stock": 55,
+      "images": [
+        "https://images.unsplash.com/photo-1571175439180-6ac6043bc281?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Haier Refrigerator featuring latest Double Door technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "3 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-27-HA",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 275,
+      "viewsCount": 1923,
+      "_id": "000000000000000000prod27"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Sonos Bluetooth 28",
+      "brand": "Sonos",
+      "category": "Speakers",
+      "subCategory": "Bluetooth",
+      "price": 33400,
+      "discountPrice": 28390,
+      "rating": "4.0",
+      "numberOfReviews": 218,
+      "stock": 25,
+      "images": [
+        "https://images.unsplash.com/photo-1545454675-3531b543be5d?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1589003077984-894e133dabab?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Sonos Speakers featuring latest Bluetooth technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "4 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-28-SO",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 894,
+      "viewsCount": 2767,
+      "_id": "000000000000000000prod28"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Xiaomi Smart TV 29",
+      "brand": "Xiaomi",
+      "category": "Television",
+      "subCategory": "Smart TV",
+      "price": 144641,
+      "discountPrice": 122944,
+      "rating": "4.0",
+      "numberOfReviews": 530,
+      "stock": 44,
+      "images": [
+        "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1509281373149-e957c6296406?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Xiaomi Television featuring latest Smart TV technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "4 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-29-XI",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 144,
+      "viewsCount": 1379,
+      "_id": "000000000000000000prod29"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "HP Business 30",
+      "brand": "HP",
+      "category": "Laptop",
+      "subCategory": "Business",
+      "price": 62332,
+      "discountPrice": 52982,
+      "rating": "3.8",
+      "numberOfReviews": 430,
+      "stock": 97,
+      "images": [
+        "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1517336713914-89b9388c0ef5?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium HP Laptop featuring latest Business technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "3 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-30-HP",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 199,
+      "viewsCount": 2635,
+      "_id": "000000000000000000prod30"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Samsung Budget 31",
+      "brand": "Samsung",
+      "category": "Mobile Phone",
+      "subCategory": "Budget",
+      "price": 63483,
+      "discountPrice": 53960,
+      "rating": "4.3",
+      "numberOfReviews": 85,
+      "stock": 39,
+      "images": [
+        "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1523206489230-c012c64b2b48?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Samsung Mobile Phone featuring latest Budget technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "5 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-31-SA",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 871,
+      "viewsCount": 181,
+      "_id": "000000000000000000prod31"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "JBL Bluetooth 32",
+      "brand": "JBL",
+      "category": "Speakers",
+      "subCategory": "Bluetooth",
+      "price": 23616,
+      "discountPrice": 20073,
+      "rating": "4.4",
+      "numberOfReviews": 132,
+      "stock": 18,
+      "images": [
+        "https://images.unsplash.com/photo-1545454675-3531b543be5d?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1589003077984-894e133dabab?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium JBL Speakers featuring latest Bluetooth technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "3 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-32-JB",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 760,
+      "viewsCount": 2595,
+      "_id": "000000000000000000prod32"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Godrej Side-by-Side 33",
+      "brand": "Godrej",
+      "category": "Refrigerator",
+      "subCategory": "Side-by-Side",
+      "price": 39737,
+      "discountPrice": 33776,
+      "rating": "4.2",
+      "numberOfReviews": 337,
+      "stock": 7,
+      "images": [
+        "https://images.unsplash.com/photo-1571175439180-6ac6043bc281?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Godrej Refrigerator featuring latest Side-by-Side technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "4 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-33-GO",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 886,
+      "viewsCount": 3561,
+      "_id": "000000000000000000prod33"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Morphy Richards Grill 34",
+      "brand": "Morphy Richards",
+      "category": "Microwave Oven",
+      "subCategory": "Grill",
+      "price": 150228,
+      "discountPrice": 127693,
+      "rating": "4.9",
+      "numberOfReviews": 540,
+      "stock": 59,
+      "images": [
+        "https://images.unsplash.com/photo-1585659722982-7d634f37a851?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1574265366533-547ca9539796?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Morphy Richards Microwave Oven featuring latest Grill technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "5 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-34-MO",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 918,
+      "viewsCount": 3784,
+      "_id": "000000000000000000prod34"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Fossil Fitness 35",
+      "brand": "Fossil",
+      "category": "Smart Watch",
+      "subCategory": "Fitness",
+      "price": 137634,
+      "discountPrice": 116988,
+      "rating": "4.1",
+      "numberOfReviews": 65,
+      "stock": 73,
+      "images": [
+        "https://images.unsplash.com/photo-1544117518-30df16413a48?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1508685096489-7aacd1808068?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Fossil Smart Watch featuring latest Fitness technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "5 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-35-FO",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 974,
+      "viewsCount": 1133,
+      "_id": "000000000000000000prod35"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Samsung Convection 36",
+      "brand": "Samsung",
+      "category": "Microwave Oven",
+      "subCategory": "Convection",
+      "price": 102968,
+      "discountPrice": 87522,
+      "rating": "4.9",
+      "numberOfReviews": 549,
+      "stock": 7,
+      "images": [
+        "https://images.unsplash.com/photo-1585659722982-7d634f37a851?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1574265366533-547ca9539796?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Samsung Microwave Oven featuring latest Convection technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "5 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-36-SA",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 516,
+      "viewsCount": 1626,
+      "_id": "000000000000000000prod36"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Sony OLED TV 37",
+      "brand": "Sony",
+      "category": "Television",
+      "subCategory": "OLED TV",
+      "price": 71658,
+      "discountPrice": 60909,
+      "rating": "3.9",
+      "numberOfReviews": 276,
+      "stock": 22,
+      "images": [
+        "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1509281373149-e957c6296406?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Sony Television featuring latest OLED TV technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "5 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-37-SO",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 9,
+      "viewsCount": 4249,
+      "_id": "000000000000000000prod37"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Bosch Front Load 38",
+      "brand": "Bosch",
+      "category": "Washing Machine",
+      "subCategory": "Front Load",
+      "price": 144963,
+      "discountPrice": 123218,
+      "rating": "3.8",
+      "numberOfReviews": 409,
+      "stock": 43,
+      "images": [
+        "https://images.unsplash.com/photo-1626806819282-2c13b3ad5e81?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Bosch Washing Machine featuring latest Front Load technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "3 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-38-BO",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 811,
+      "viewsCount": 3604,
+      "_id": "000000000000000000prod38"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Samsung Window AC 39",
+      "brand": "Samsung",
+      "category": "Air Conditioner",
+      "subCategory": "Window AC",
+      "price": 43608,
+      "discountPrice": 37066,
+      "rating": "4.3",
+      "numberOfReviews": 227,
+      "stock": 44,
+      "images": [
+        "https://images.unsplash.com/photo-1585338107529-13afc5f0171f?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1591185473233-2999b5a14643?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Samsung Air Conditioner featuring latest Window AC technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "3 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-39-SA",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 251,
+      "viewsCount": 2663,
+      "_id": "000000000000000000prod39"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Samsung Side-by-Side 40",
+      "brand": "Samsung",
+      "category": "Refrigerator",
+      "subCategory": "Side-by-Side",
+      "price": 102957,
+      "discountPrice": 87513,
+      "rating": "4.7",
+      "numberOfReviews": 463,
+      "stock": 28,
+      "images": [
+        "https://images.unsplash.com/photo-1571175439180-6ac6043bc281?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Samsung Refrigerator featuring latest Side-by-Side technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "5 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-40-SA",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 187,
+      "viewsCount": 2767,
+      "_id": "000000000000000000prod40"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "HP Business 41",
+      "brand": "HP",
+      "category": "Laptop",
+      "subCategory": "Business",
+      "price": 101023,
+      "discountPrice": 85869,
+      "rating": "4.8",
+      "numberOfReviews": 455,
+      "stock": 21,
+      "images": [
+        "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1517336713914-89b9388c0ef5?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium HP Laptop featuring latest Business technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "3 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-41-HP",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 797,
+      "viewsCount": 1105,
+      "_id": "000000000000000000prod41"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "LG Solo 42",
+      "brand": "LG",
+      "category": "Microwave Oven",
+      "subCategory": "Solo",
+      "price": 43951,
+      "discountPrice": 37358,
+      "rating": "4.7",
+      "numberOfReviews": 88,
+      "stock": 84,
+      "images": [
+        "https://images.unsplash.com/photo-1585659722982-7d634f37a851?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1574265366533-547ca9539796?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium LG Microwave Oven featuring latest Solo technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "5 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-42-LG",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 140,
+      "viewsCount": 1006,
+      "_id": "000000000000000000prod42"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Whirlpool Front Load 43",
+      "brand": "Whirlpool",
+      "category": "Washing Machine",
+      "subCategory": "Front Load",
+      "price": 40629,
+      "discountPrice": 34534,
+      "rating": "3.5",
+      "numberOfReviews": 230,
+      "stock": 75,
+      "images": [
+        "https://images.unsplash.com/photo-1626806819282-2c13b3ad5e81?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Whirlpool Washing Machine featuring latest Front Load technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "5 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-43-WH",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 505,
+      "viewsCount": 206,
+      "_id": "000000000000000000prod43"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Bose Portable 44",
+      "brand": "Bose",
+      "category": "Speakers",
+      "subCategory": "Portable",
+      "price": 59226,
+      "discountPrice": 50342,
+      "rating": "3.9",
+      "numberOfReviews": 237,
+      "stock": 94,
+      "images": [
+        "https://images.unsplash.com/photo-1545454675-3531b543be5d?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1589003077984-894e133dabab?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Bose Speakers featuring latest Portable technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "3 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-44-BO",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 75,
+      "viewsCount": 878,
+      "_id": "000000000000000000prod44"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "LG Single Door 45",
+      "brand": "LG",
+      "category": "Refrigerator",
+      "subCategory": "Single Door",
+      "price": 22098,
+      "discountPrice": 18783,
+      "rating": "4.4",
+      "numberOfReviews": 259,
+      "stock": 93,
+      "images": [
+        "https://images.unsplash.com/photo-1571175439180-6ac6043bc281?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium LG Refrigerator featuring latest Single Door technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "3 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-45-LG",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 816,
+      "viewsCount": 1914,
+      "_id": "000000000000000000prod45"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Sony LED TV 46",
+      "brand": "Sony",
+      "category": "Television",
+      "subCategory": "LED TV",
+      "price": 23934,
+      "discountPrice": 20343,
+      "rating": "4.2",
+      "numberOfReviews": 498,
+      "stock": 46,
+      "images": [
+        "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1509281373149-e957c6296406?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Sony Television featuring latest LED TV technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "4 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-46-SO",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 357,
+      "viewsCount": 4301,
+      "_id": "000000000000000000prod46"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "ASUS Ultrabook 47",
+      "brand": "ASUS",
+      "category": "Laptop",
+      "subCategory": "Ultrabook",
+      "price": 83194,
+      "discountPrice": 70714,
+      "rating": "3.6",
+      "numberOfReviews": 220,
+      "stock": 12,
+      "images": [
+        "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1517336713914-89b9388c0ef5?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium ASUS Laptop featuring latest Ultrabook technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "3 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-47-AS",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 601,
+      "viewsCount": 3080,
+      "_id": "000000000000000000prod47"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Panasonic Solo 48",
+      "brand": "Panasonic",
+      "category": "Microwave Oven",
+      "subCategory": "Solo",
+      "price": 33500,
+      "discountPrice": 28475,
+      "rating": "4.5",
+      "numberOfReviews": 332,
+      "stock": 85,
+      "images": [
+        "https://images.unsplash.com/photo-1585659722982-7d634f37a851?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1574265366533-547ca9539796?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Panasonic Microwave Oven featuring latest Solo technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "5 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-48-PA",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 176,
+      "viewsCount": 3899,
+      "_id": "000000000000000000prod48"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "Voltas Split AC 49",
+      "brand": "Voltas",
+      "category": "Air Conditioner",
+      "subCategory": "Split AC",
+      "price": 30767,
+      "discountPrice": 26151,
+      "rating": "4.8",
+      "numberOfReviews": 387,
+      "stock": 76,
+      "images": [
+        "https://images.unsplash.com/photo-1585338107529-13afc5f0171f?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1591185473233-2999b5a14643?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium Voltas Air Conditioner featuring latest Split AC technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "1 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "3 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-49-VO",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 102,
+      "viewsCount": 4416,
+      "_id": "000000000000000000prod49"
+    },
+    {
+      "user": "6798e9b0e1a1b1c1d1e1f201",
+      "name": "ASUS Gaming 50",
+      "brand": "ASUS",
+      "category": "Laptop",
+      "subCategory": "Gaming",
+      "price": 65037,
+      "discountPrice": 55281,
+      "rating": "4.4",
+      "numberOfReviews": 428,
+      "stock": 50,
+      "images": [
+        "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1517336713914-89b9388c0ef5?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Premium ASUS Laptop featuring latest Gaming technology. Built for performance and reliability in modern electronics standards. Includes high-efficiency components and sleek design.",
+      "warranty": "2 Year Comprehensive Warranty",
+      "specifications": {
+        "Energy Rating": "4 Star",
+        "Year of Release": "2025",
+        "Model Number": "EL-50-AS",
+        "Connectivity": "Smart Wi-Fi Enabled",
+        "Color": "Premium Metallic"
+      },
+      "salesCount": 158,
+      "viewsCount": 4606,
+      "_id": "000000000000000000prod50"
     }
   ],
   "categories": [
@@ -97,6 +1425,58 @@
       "name": "Audio",
       "description": "Headphones, speakers, and sound systems",
       "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop"
+    }
+  ],
+  "users": [
+    {
+      "name": "Admin User",
+      "email": "admin@example.com",
+      "password": "$2b$10$qTkmpMelxYugXqlCz/va9.jLHALEPaoeOk0Ibhc.DNSTALFdZZz6G",
+      "role": "admin",
+      "_id": "0000000000000000000user1",
+      "addresses": []
+    },
+    {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "password": "$2b$10$h3yGM5iMw/Rbvf6.OvfmdOJdiEz2HcDAEe/x6pDk1XfvcIMAlm6y6",
+      "role": "user",
+      "_id": "0000000000000000000user2",
+      "addresses": []
+    },
+    {
+      "name": "Jane Doe",
+      "email": "jane@example.com",
+      "password": "$2b$10$Dpe44MLdxhR7nDOVC3dVteCIlSRmAxJJGDBUWbjDVEMAh4xeVPrXe",
+      "role": "user",
+      "_id": "0000000000000000000user3",
+      "addresses": []
+    },
+    {
+      "name": "Ravi parmar",
+      "email": "ravi@gmail.com",
+      "password": "$2b$10$iy.ttzLti29IYOSxQiEo8.y8W0vky7lIza6PHMQT9GOGoUNs3YHvi",
+      "_id": "0000000user1774621946709",
+      "addresses": [],
+      "createdAt": "2026-03-27T14:32:26.709Z",
+      "updatedAt": "2026-03-27T14:32:26.709Z",
+      "role": "user"
+    }
+  ],
+  "orders": [],
+  "userActivities": [
+    {
+      "userId": "0000000user1774621946709",
+      "viewedProducts": [
+        "000000000000000000prod39",
+        "000000000000000000prod46"
+      ],
+      "searchedCategories": [
+        "Air Conditioner",
+        "Television"
+      ],
+      "_id": "0000000actv1774622568290",
+      "createdAt": "2026-03-27T14:42:48.290Z"
     }
   ]
 }
