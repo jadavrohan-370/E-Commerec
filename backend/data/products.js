@@ -24,7 +24,7 @@ const products = [
     subCategory: "Mobile Phones",
     price: 1099.99,
     countInStock: 7,
-    rating: 4.0,
+    rating: 4.5,
     numReviews: 8,
   },
   {

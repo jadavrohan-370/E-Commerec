@@ -7,7 +7,7 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import connectDB from "./config/db.js";
 import { connectRedis } from "./config/redis.js";
-import { checkElasticsearchConnection } from "./services/elasticsearch.js";
+import { checkElasticsearchConnection, setupIndex } from "./services/elasticsearch.js";
 
 import userRoutes from "./routes/userRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
@@ -19,9 +19,10 @@ import { notFound, errorHandler } from "./middlewares/errorMiddleware.js";
 dotenv.config();
 
 // Connect to databases
-// connectDB();
-// connectRedis();
-// checkElasticsearchConnection();
+connectDB();
+connectRedis();
+checkElasticsearchConnection();
+setupIndex();
 
 const app = express();
 

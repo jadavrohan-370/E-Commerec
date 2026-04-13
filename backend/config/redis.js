@@ -4,16 +4,17 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const redisClient = createClient({
-  url: process.env.REDIS_URL || "redis://localhost:6379",
+  username: process.env.REDIS_USER || "default",
+  password: process.env.REDIS_PASSWORD,
   socket: {
+    host: process.env.REDIS_HOST || "localhost",
+    port: parseInt(process.env.REDIS_PORT) || 6379,
     reconnectStrategy: (retries) => {
       if (retries > 5) {
-        // Stop retrying after 5 attempts to avoid log spamming
-        // Returning false will stop the client from trying to reconnect
         console.warn("Redis reconnection failed after 5 attempts. Cache disabled.");
         return false;
       }
-      return Math.min(retries * 100, 3000); // Backoff strategy
+      return Math.min(retries * 100, 3000);
     }
   }
 });
@@ -21,8 +22,7 @@ const redisClient = createClient({
 let isRedisConnected = false;
 
 redisClient.on("error", (err) => {
-  if (err.code === 'ECONNREFUSED') {
-    // Only log once to avoid spamming the console
+  if (err.code === 'ECONNREFUSED' || err.code === 'ETIMEDOUT') {
     if (isRedisConnected || !redisClient.isOpen) {
       console.warn("Redis server is not reachable. Caching layer is disabled.");
       isRedisConnected = false;
@@ -47,7 +47,7 @@ export const connectRedis = async () => {
       await redisClient.connect();
     }
   } catch (error) {
-    // Silent fail since we handle it in 'error' event
+    // Silent fail handled by listeners
   }
 };
 

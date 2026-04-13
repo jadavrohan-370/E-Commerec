@@ -1,7 +1,7 @@
-import React, { useRef, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, MeshDistortMaterial, Stars } from '@react-three/drei';
-import * as THREE from 'three';
+import React, { useRef, useMemo } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Float, MeshDistortMaterial, Stars } from "@react-three/drei";
+import * as THREE from "three";
 
 const AmbientShapes = () => {
   const mesh1 = useRef();
@@ -11,8 +11,9 @@ const AmbientShapes = () => {
     // THREE.Timer uses .getElapsed() while Clock uses .getElapsedTime()
     // Providing support for both to be safe
     const clock = state.clock;
-    const t = clock?.getElapsed?.() ?? clock?.getElapsedTime?.() ?? (Date.now() / 1000);
-    
+    const t =
+      clock?.getElapsed?.() ?? clock?.getElapsedTime?.() ?? Date.now() / 1000;
+
     if (mesh1?.current) {
       mesh1.current.rotation.x = Math.cos(t / 4) / 8;
       mesh1.current.rotation.y = Math.sin(t / 4) / 8;
@@ -30,7 +31,7 @@ const AmbientShapes = () => {
               color: "#3b82f6",
               speed: 3,
               distort: 0.4,
-              radius: 1
+              radius: 1,
             }}
           />
         </mesh>
@@ -44,13 +45,23 @@ const AmbientShapes = () => {
               color: "#8b5cf6",
               speed: 5,
               distort: 0.6,
-              radius: 1
+              radius: 1,
             }}
           />
         </mesh>
       </Float>
 
-      <Stars {...{ radius: 100, depth: 50, count: 5000, factor: 4, saturation: 0, fade: true, speed: 1 }} />
+      <Stars
+        {...{
+          radius: 100,
+          depth: 50,
+          count: 5000,
+          factor: 4,
+          saturation: 0,
+          fade: true,
+          speed: 1,
+        }}
+      />
     </>
   );
 };
@@ -61,15 +72,22 @@ const HeroCanvas = () => {
 
   return (
     <div className="absolute inset-0 pointer-events-none">
-      <Canvas 
+      <Canvas
         {...{
           camera: { position: [2, 4, 5], fov: 75 },
-          clock: timer
+          clock: timer,
         }}
       >
         <ambientLight {...{ intensity: 0.5 }} />
         <pointLight {...{ position: [10, 10, 10], intensity: 1 }} />
-        <spotLight {...{ position: [-10, 10, 10], angle: 0.15, penumbra: 1, intensity: 1 }} />
+        <spotLight
+          {...{
+            position: [-10, 10, 10],
+            angle: 0.15,
+            penumbra: 1,
+            intensity: 1,
+          }}
+        />
         <AmbientShapes />
       </Canvas>
     </div>

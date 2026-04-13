@@ -1369,7 +1369,7 @@
         "Color": "Premium Metallic"
       },
       "salesCount": 102,
-      "viewsCount": 4416,
+      "viewsCount": 4418,
       "_id": "000000000000000000prod49"
     },
     {
@@ -1469,7 +1469,8 @@
       "userId": "0000000user1774621946709",
       "viewedProducts": [
         "000000000000000000prod39",
-        "000000000000000000prod46"
+        "000000000000000000prod46",
+        "000000000000000000prod49"
       ],
       "searchedCategories": [
         "Air Conditioner",

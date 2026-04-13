@@ -5,6 +5,10 @@ dotenv.config();
 
 const client = new Client({
   node: process.env.ELASTICSEARCH_NODE || "http://localhost:9200",
+  auth: {
+    apiKey: process.env.ELASTICSEARCH_API_KEY
+  },
+  serverMode: 'serverless',
 });
 
 export const checkElasticsearchConnection = async () => {
@@ -12,7 +16,32 @@ export const checkElasticsearchConnection = async () => {
     const health = await client.cluster.health();
     console.log(`Elasticsearch Connected: ${health.status}`);
   } catch (error) {
-    console.warn(`Elasticsearch connection failed. Search will fallback to MongoDB.`);
+    console.warn(
+      `Elasticsearch connection failed. Search will fallback to MongoDB.`,
+    );
+  }
+};
+
+export const setupIndex = async () => {
+  try {
+    const exists = await client.indices.exists({ index: "products" });
+    if (!exists) {
+      await client.indices.create({
+        index: "products",
+        mappings: {
+          properties: {
+            text: { type: "semantic_text", copy_to: "all_text" },
+            name: { type: "text" },
+            description: { type: "text" },
+            brand: { type: "keyword" },
+            category: { type: "keyword" }
+          }
+        }
+      });
+      console.log("Elasticsearch 'products' index initialized.");
+    }
+  } catch (error) {
+    // Index might already exist
   }
 };
 
@@ -26,9 +55,10 @@ export const indexProduct = async (product) => {
         description: product.description,
         brand: product.brand,
         category: product.category,
-        subCategory: product.subCategory,
         price: product.price,
         rating: product.rating,
+        // Combined text for semantic search
+        text: `${product.name}. ${product.brand}. ${product.category}. ${product.description}`,
       },
     });
   } catch (error) {
@@ -49,35 +79,43 @@ export const deleteProductFromES = async (productId) => {
 
 export const searchProductsES = async (queryText, filters = {}) => {
   try {
-    const must = [
-      {
-        multi_match: {
-          query: queryText,
-          fields: ["name^3", "brand^2", "category", "description"],
-          fuzziness: "AUTO",
-        },
-      },
-    ];
+    // Using the Semantic Retriever as requested
+    const body = {
+      retriever: {
+        standard: {
+          query: {
+            semantic: {
+              field: "text",
+              query: queryText
+            }
+          }
+        }
+      }
+    };
 
-    if (filters.category) {
-      must.push({ term: { "category.keyword": filters.category } });
-    }
-    if (filters.brand) {
-      must.push({ term: { "brand.keyword": filters.brand } });
-    }
-
-    const { hits } = await client.search({
+    const result = await client.search({
       index: "products",
-      query: {
-        bool: {
-          must,
-        },
-      },
+      body,
     });
-    return hits.hits.map((hit) => hit._id);
+    
+    return result.hits.hits.map((hit) => hit._id);
   } catch (error) {
-    console.error("ES Search Error:", error.message);
-    return [];
+    console.error("ES Semantic Search Error (falling back to legacy):", error.message);
+    // Fallback to basic search if semantic fails
+    try {
+      const { hits } = await client.search({
+        index: "products",
+        query: {
+          multi_match: {
+            query: queryText,
+            fields: ["name^3", "brand^2", "category", "description"],
+          }
+        }
+      });
+      return hits.hits.map((hit) => hit._id);
+    } catch (innerError) {
+      return [];
+    }
   }
 };
 
