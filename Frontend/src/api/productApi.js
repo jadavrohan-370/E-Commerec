@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// Pointing to the Vercel proxy or local vite proxy
-const API_BASE_URL = "/api";
+const backendUrl = import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_API_BASE_URL || "";
+const API_BASE_URL = `${backendUrl}/api`;
 
 const API = axios.create({
   baseURL: API_BASE_URL,
@@ -38,7 +38,7 @@ export const fetchTopProducts = async (limit = 6) => {
 export const searchProducts = async (query, { category, brand } = {}) => {
   const response = await API.get("/search", {
     params: { q: query, category, brand },
-  });
+  });``
   return response.data.products;
 };
 
