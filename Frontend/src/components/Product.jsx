@@ -8,6 +8,7 @@ import {
   addToWishlist,
   removeFromWishlist,
 } from "../store/slices/wishlistSlice";
+import { addToCart } from "../store/slices/cartSlice";
 
 const Product = ({ product }) => {
   const dispatch = useDispatch();
@@ -32,10 +33,10 @@ const Product = ({ product }) => {
     };
 
     try {
-      if (navigator.share) {
-        await navigator.share(shareData);
+      if (globalThis.navigator.share) {
+        await globalThis.navigator.share(shareData);
       } else {
-        await navigator.clipboard.writeText(
+        await globalThis.navigator.clipboard.writeText(
           `${globalThis.location.origin}/product/${product._id}`,
         );
         toast.success("Link copied to clipboard");
@@ -46,6 +47,22 @@ const Product = ({ product }) => {
       }
     }
   };
+
+  const addToCartHandler = (e) => {
+    e.preventDefault();
+    if (product.stock > 0) {
+      dispatch(
+        addToCart({
+          ...product,
+          qty: 1,
+          image: product.images?.[0] || "",
+          product: product._id,
+        }),
+      );
+      toast.success(`${product.name} added to bag`);
+    }
+  };
+
   return (
     <div className="bg-background rounded-3xl transition-all duration-500 overflow-hidden border border-border flex flex-col h-full group hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1">
       <Link
@@ -57,7 +74,7 @@ const Product = ({ product }) => {
           className="w-full h-full object-contain p-8 group-hover:scale-110 transition-transform duration-700 mix-blend-multiply"
           alt={product.name}
         />
-        {product.price > product.discountPrice && (
+        {product.price > (product.discountPrice || product.price) && (
           <div className="absolute top-4 left-4 bg-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter shadow-lg">
             SALE
           </div>
@@ -110,6 +127,8 @@ const Product = ({ product }) => {
             )}
           </div>
           <button
+            onClick={addToCartHandler}
+            disabled={product.stock === 0}
             className={`p-3 bg-primary text-primary-foreground rounded-2xl hover:opacity-90 transition-all active:scale-95 shadow-lg shadow-primary/20 ${product.stock === 0 ? "opacity-50 cursor-not-allowed" : ""}`}
           >
             <ShoppingCart size={18} />

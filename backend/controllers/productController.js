@@ -17,10 +17,8 @@ const getProducts = asyncHandler(async (req, res) => {
   if (req.query.category) query.category = req.query.category;
   if (req.query.brand) query.brand = req.query.brand;
   if (req.query.rating) query.rating = { $gte: Number(req.query.rating) };
-  if (req.query.minPrice || req.query.maxPrice) {
-    query.price = {};
-    if (req.query.minPrice) query.price.$gte = Number(req.query.minPrice);
-    if (req.query.maxPrice) query.price.$lte = Number(req.query.maxPrice);
+  if (req.query.price) {
+    query.price = { $lte: Number(req.query.price) };
   }
 
   const cacheKey = `products_p${page}_l${limit}_${JSON.stringify(query)}`;

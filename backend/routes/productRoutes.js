@@ -1,22 +1,29 @@
 import express from "express";
-const router = express.Router();
 import {
   getProducts,
   getProductById,
-  createProduct,
-  updateProduct,
-  deleteProduct,
   getTrendingProducts,
 } from "../controllers/productController.js";
-import { protect, admin } from "../middlewares/authMiddleware.js";
 
-router.route("/").get(getProducts).post(protect, admin, createProduct);
+const router = express.Router();
+
+/**
+ * @route   GET /api/products/trending
+ * @desc    Get trending products
+ * @access  Public
+ */
 router.get("/trending", getTrendingProducts);
 
-router
-  .route("/:id")
-  .get(getProductById)
-  .put(protect, admin, updateProduct)
-  .delete(protect, admin, deleteProduct);
+/**
+ * @route   GET /api/products
+ * @desc    Get all products
+ */
+router.get("/", getProducts);
 
-export default router;
+/**
+ * @route   GET /api/products/:id
+ * @desc    Get single product
+ */
+router.get("/:id", getProductById);
+
+export default router;``

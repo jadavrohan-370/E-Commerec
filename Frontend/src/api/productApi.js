@@ -8,9 +8,9 @@ const API = axios.create({
   withCredentials: true, // Crucial for JWT cookies
 });
 
-export const fetchProducts = async ({ category, brand, minPrice, maxPrice, rating, page = 1 } = {}) => {
+export const fetchProducts = async ({ category, brand, price, rating, page = 1 } = {}) => {
   const response = await API.get("/products", {
-    params: { category, brand, minPrice, maxPrice, rating, page },
+    params: { category, brand, price, rating, page },
   });
   
   // Our backend already returns products in the correct format with INR prices

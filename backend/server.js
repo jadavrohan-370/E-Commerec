@@ -19,18 +19,18 @@ import { notFound, errorHandler } from "./middlewares/errorMiddleware.js";
 dotenv.config();
 
 // Connect to databases
-connectDB();
-connectRedis();
-checkElasticsearchConnection();
-setupIndex();
+await connectDB();
+await connectRedis();
+await checkElasticsearchConnection();
+await setupIndex();
 
 const app = express();
-
+  
 // Security Middlewares
 app.use(helmet());
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+  windowMs: 15 * 60 * 1000, 
+  max: 1000, // Increased for development
   message: "Too many requests from this IP, please try again after 15 minutes",
 });
 app.use("/api/", limiter);
@@ -38,6 +38,13 @@ app.use("/api/", limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+// Simple logging middleware
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.originalUrl}`);
+  next();
+});
+
 app.use(
   cors({
     origin: process.env.CLIENT_URL || "http://localhost:5173",
@@ -60,8 +67,8 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/search", searchRoutes);
 app.use("/api/recommendations", recommendationRoutes);
 
-app.get("/api/config/jiopay", (req, res) =>
-  res.send({ merchantId: process.env.JIOPAY_MERCHANT_ID }),
+app.get("/api/config/razorpay", (req, res) =>
+  res.send({ clientId: process.env.RAZORPAY_KEY_ID || "YOUR_RAZORPAY_KEY_ID" }),
 );
 
 app.use(notFound);

@@ -60,7 +60,14 @@ const ProductDetails = () => {
   }, [productId]);
 
   const addToCartHandler = () => {
-    dispatch(addToCart({ ...product, qty }));
+    dispatch(
+      addToCart({
+        ...product,
+        qty,
+        image: product.images?.[0] || "",
+        product: product._id,
+      }),
+    );
     navigate("/cart");
   };
 

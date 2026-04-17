@@ -47,8 +47,15 @@ const PlaceOrder = () => {
   const placeOrderHandler = async () => {
     try {
       const res = await createOrder({
-        orderItems: cart.cartItems,
-        shippingAddress: cart.shippingAddress,
+        orderItems: cart.cartItems.map((item) => ({
+          ...item,
+          product: item._id,
+          image: item.image || item.images?.[0] || "",
+        })),
+        shippingAddress: {
+          ...cart.shippingAddress,
+          address: cart.shippingAddress.street,
+        },
         paymentMethod: cart.paymentMethod,
         itemsPrice,
         shippingPrice,

@@ -35,66 +35,22 @@ const Order = () => {
   const [createRazorpayOrder, { isLoading: loadingRazorpayOrder }] =
     useCreateRazorpayOrderMutation();
 
-  useEffect(() => {
-    if (!order || order.isPaid) return;
+  // Removed Razorpay script load and displayRazorpay handle for demo mode
 
-    if (!window.Razorpay) {
-      const script = document.createElement("script");
-      script.src = "https://checkout.razorpay.com/v1/checkout.js";
-      script.async = true;
-      document.body.appendChild(script);
-    }
-  }, [order]);
-
-  const successPaymentHandler = async (paymentResult) => {
+  const demoPaymentHandler = async () => {
     try {
       await payOrder({
         orderId,
         details: {
-          razorpay_payment_id: paymentResult.razorpay_payment_id,
-          razorpay_order_id: paymentResult.razorpay_order_id,
-          razorpay_signature: paymentResult.razorpay_signature,
+          razorpay_payment_id: "demo_payment",
+          razorpay_order_id: "demo_order",
+          razorpay_signature: "demo_signature",
         },
       });
       refetch();
-      toast.success("Transaction Securely Completed");
+      toast.success("Demo Transaction Completed!");
     } catch (err) {
       toast.error(err?.data?.message || err.message);
-    }
-  };
-
-  const displayRazorpay = async () => {
-    if (!configAuth) return;
-
-    try {
-      const rzpOrderData = await createRazorpayOrder(orderId).unwrap();
-
-      const options = {
-        key: configAuth.clientId,
-        amount: rzpOrderData.amount,
-        currency: rzpOrderData.currency,
-        name: "NOVA STORE",
-        description: "Official Acquisition",
-        image:
-          "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=200&auto=format&fit=crop",
-        order_id: rzpOrderData.id,
-        handler: function (response) {
-          successPaymentHandler(response);
-        },
-        prefill: {
-          name: order.user.name,
-          email: order.user.email,
-        },
-        theme: {
-          color: "#000000",
-        },
-      };
-
-      const paymentObject = new window.Razorpay(options);
-      paymentObject.open();
-    } catch (err) {
-      console.error("Razorpay Load Error:", err);
-      toast.error("Failed to initialize encrypted payment");
     }
   };
 
@@ -321,21 +277,15 @@ const Order = () => {
               {!order.isPaid && (
                 <div className="mt-12 space-y-4">
                   <button
-                    onClick={displayRazorpay}
+                    onClick={demoPaymentHandler}
                     disabled={loadingRazorpayOrder}
-                    className="w-full bg-background text-foreground font-bold py-6 rounded-2xl shadow-xl hover:opacity-90 transition-all flex justify-center items-center gap-3 group active:scale-[0.98]"
+                    className="w-full bg-primary text-primary-foreground font-bold py-6 rounded-2xl shadow-xl hover:opacity-90 transition-all flex justify-center items-center gap-3 group active:scale-[0.98]"
                   >
-                    {loadingRazorpayOrder ? (
-                      <Loader className="w-6 h-6" />
-                    ) : (
-                      <>
-                        Complete Payment{" "}
-                        <CreditCard
-                          size={20}
-                          className="group-hover:rotate-12 transition-transform"
-                        />
-                      </>
-                    )}
+                    Simulate Demo Payment
+                    <CreditCard
+                      size={20}
+                      className="group-hover:rotate-12 transition-transform"
+                    />
                   </button>
                   <p className="text-center text-[10px] font-bold opacity-30 uppercase tracking-widest">
                     Protected by 256-bit Bank Encryption

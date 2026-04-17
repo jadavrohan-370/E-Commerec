@@ -70,6 +70,14 @@ const productSchema = mongoose.Schema(
       required: true,
       default: 0,
     },
+    viewsCount: {
+      type: Number,
+      default: 0,
+    },
+    salesCount: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,

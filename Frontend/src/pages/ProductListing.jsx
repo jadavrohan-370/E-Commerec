@@ -39,32 +39,27 @@ const ProductListing = () => {
   const [filters, setFilters] = useState({
     category: urlCategory || searchParams.get("category") || "",
     brand: searchParams.get("brand") || "",
-    minPrice: searchParams.get("minPrice") || "0",
-    maxPrice: searchParams.get("maxPrice") || "500000",
+    price: searchParams.get("price") || "500000",
     rating: searchParams.get("rating") || "",
     page: parseInt(searchParams.get("page")) || 1,
   });
 
   // Local state for slider to allow smooth sliding without immediate API calls
-  const [localPrice, setLocalPrice] = useState({
-    min: parseInt(filters.minPrice),
-    max: parseInt(filters.maxPrice)
-  });
+  const [localPrice, setLocalPrice] = useState(parseInt(filters.price));
 
   // Debounce price updates
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (localPrice.min.toString() !== filters.minPrice || localPrice.max.toString() !== filters.maxPrice) {
+      if (localPrice.toString() !== filters.price) {
         setFilters(prev => ({ 
           ...prev, 
-          minPrice: localPrice.min.toString(), 
-          maxPrice: localPrice.max.toString(),
+          price: localPrice.toString(),
           page: 1 
         }));
       }
     }, 500);
     return () => clearTimeout(timer);
-  }, [localPrice, filters.minPrice, filters.maxPrice]);
+  }, [localPrice, filters.price]);
 
   const getProducts = useCallback(async () => {
     try {
@@ -102,12 +97,11 @@ const ProductListing = () => {
     setFilters({
       category: "",
       brand: "",
-      minPrice: "0",
-      maxPrice: "500000",
+      price: "500000",
       rating: "",
       page: 1,
     });
-    setLocalPrice({ min: 0, max: 500000 });
+    setLocalPrice(500000);
   };
 
   const pageTitle = filters.category || "All Collections";
@@ -162,21 +156,19 @@ const ProductListing = () => {
             </div>
             
             <div className="flex-1 space-y-8">
-              <DualRangeSlider 
+              <input 
+                type="range"
                 min={0} 
                 max={500000} 
-                values={[localPrice.min, localPrice.max]} 
-                onChange={(vals) => setLocalPrice({ min: vals[0], max: vals[1] })} 
+                step={1000}
+                value={localPrice} 
+                onChange={(e) => setLocalPrice(parseInt(e.target.value))}
+                className="w-full h-2 bg-secondary rounded-lg appearance-none cursor-pointer accent-primary"
               />
               <div className="flex items-center justify-between">
                 <div className="flex flex-col">
-                  <span className="text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-1">Floor</span>
-                  <span className="text-sm font-black">₹{localPrice.min.toLocaleString()}</span>
-                </div>
-                <div className="h-4 w-px bg-border/50" />
-                <div className="flex flex-col items-end">
-                  <span className="text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-1">Ceiling</span>
-                  <span className="text-sm font-black">₹{localPrice.max.toLocaleString()}</span>
+                  <span className="text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-1">Range</span>
+                  <span className="text-sm font-black">Up to ₹{localPrice.toLocaleString()}</span>
                 </div>
               </div>
             </div>
@@ -422,51 +414,7 @@ const BrandOption = ({ label, active, onClick }) => (
   </button>
 );
 
-const DualRangeSlider = ({ min, max, values, onChange }) => {
-  const minPos = ((values[0] - min) / (max - min)) * 100;
-  const maxPos = ((values[1] - min) / (max - min)) * 100;
 
-  return (
-    <div className="relative w-full h-1.5 bg-secondary rounded-full mt-2">
-      <div 
-        className="absolute h-full bg-primary rounded-full transition-all duration-200"
-        style={{ left: `${minPos}%`, right: `${100 - maxPos}%` }}
-      />
-      <input
-        type="range"
-        min={min}
-        max={max}
-        step={100}
-        value={values[0]}
-        onChange={(e) => {
-          const val = Math.min(parseInt(e.target.value), values[1] - 1000);
-          onChange([val, values[1]]);
-        }}
-        className="absolute w-full -top-1.5 h-4 opacity-0 cursor-pointer z-30"
-      />
-      <input
-        type="range"
-        min={min}
-        max={max}
-        step={100}
-        value={values[1]}
-        onChange={(e) => {
-          const val = Math.max(parseInt(e.target.value), values[0] + 1000);
-          onChange([values[0], val]);
-        }}
-        className="absolute w-full -top-1.5 h-4 opacity-0 cursor-pointer z-30"
-      />
-      <div 
-        className="absolute w-5 h-5 bg-background border-2 border-primary rounded-full shadow-lg -top-1.75 -ml-2.5 z-20 pointer-events-none transition-all duration-200"
-        style={{ left: `${minPos}%` }}
-      />
-      <div 
-        className="absolute w-5 h-5 bg-background border-2 border-primary rounded-full shadow-lg -top-1.75 -ml-2.5 z-20 pointer-events-none transition-all duration-200"
-        style={{ left: `${maxPos}%` }}
-      />
-    </div>
-  );
-};
 
 
 const RatingButton = ({ val, active, onClick }) => (
