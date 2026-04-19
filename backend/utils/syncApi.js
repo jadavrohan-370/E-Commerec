@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import axios from "axios";
 import dotenv from "dotenv";
 import Product from "../models/productModel.js";
@@ -11,7 +10,7 @@ connectDB();
 const fetchAndSyncFromApi = async () => {
   try {
     console.log("Connecting to Intelligence API (DummyJSON)...");
-    const { data } = await axios.get("https://dummyjson.com/products?limit=100");
+    const { data } = await axios.get("https://dummyjson.com/products?limit=194");
     const externalProducts = data.products;
 
     // Get Admin ID for attribution

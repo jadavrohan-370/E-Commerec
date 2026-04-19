@@ -65,7 +65,7 @@ const subCategories = {
   'Smart Watch': ['Fitness', 'Luxury', 'Casual']
 };
 
-export const generateProducts = (count = 1000, adminId) => {
+export const generateProducts = (adminId, count = 1000) => {
   const products = [];
   
   for (let i = 1; i <= count; i++) {

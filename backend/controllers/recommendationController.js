@@ -78,7 +78,7 @@ const getPersonalizedRecommendations = asyncHandler(async (req, res) => {
   const { userId } = req.params;
   const activity = await UserActivity.findOne({ userId });
 
-  if (!activity || !activity.searchedCategories.length) {
+  if (!activity?.searchedCategories?.length) {
     // Fallback to top rated if no activity
     const products = await Product.find({}).sort({ rating: -1 }).limit(10);
     return res.json(products);

@@ -8,11 +8,11 @@ const redisClient = createClient({
   password: process.env.REDIS_PASSWORD,
   socket: {
     host: process.env.REDIS_HOST || "localhost",
-    port: parseInt(process.env.REDIS_PORT) || 6379,
+    port: Number.parseInt(process.env.REDIS_PORT, 10) || 6379,
     reconnectStrategy: (retries) => {
       if (retries > 5) {
         console.warn("Redis reconnection failed after 5 attempts. Cache disabled.");
-        return false;
+        return new Error("Reconnection failed");
       }
       return Math.min(retries * 100, 3000);
     }
@@ -47,7 +47,7 @@ export const connectRedis = async () => {
       await redisClient.connect();
     }
   } catch (error) {
-    // Silent fail handled by listeners
+    console.warn("Redis connection attempt failed:", error.message);
   }
 };
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
+import PropTypes from "prop-types";
 import {
   ChevronLeft,
   ChevronRight,
@@ -10,9 +11,9 @@ import {
   RotateCcw,
   Check
 } from "lucide-react";
-import { motion as Motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { fetchProducts } from "../api/productApi";
-import Loader from "../components/Loader";
+
 import Message from "../components/Message";
 import Product from "../components/Product";
 
@@ -344,7 +345,7 @@ const ProductListing = () => {
       {/* Mobile Filters Drawer */}
       <AnimatePresence>
         {showMobileFilters && (
-          <Motion.div 
+          <motion.div 
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
@@ -374,7 +375,7 @@ const ProductListing = () => {
             >
               Apply Transformations
             </button>
-          </Motion.div>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>
@@ -438,5 +439,34 @@ const PaginationButton = ({ children, onClick, disabled }) => (
     {children}
   </button>
 );
+
+FilterGroup.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+};
+
+Chip.propTypes = {
+  label: PropTypes.string.isRequired,
+  active: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
+
+BrandOption.propTypes = {
+  label: PropTypes.string.isRequired,
+  active: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
+
+RatingButton.propTypes = {
+  val: PropTypes.number.isRequired,
+  active: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
+
+PaginationButton.propTypes = {
+  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+};
 
 export default ProductListing;

@@ -1,6 +1,6 @@
 import asyncHandler from "express-async-handler";
 import Order from "../models/orderModel.js";
-import crypto from "crypto";
+import crypto from "node:crypto";
 import Razorpay from "razorpay";
 import dotenv from "dotenv";
 dotenv.config();
@@ -24,7 +24,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
     totalPrice,
   } = req.body;
 
-  if (orderItems && orderItems.length === 0) {
+  if (orderItems?.length === 0) {
     res.status(400);
     throw new Error("No order items");
   } else {

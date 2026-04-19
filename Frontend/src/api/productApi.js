@@ -38,7 +38,7 @@ export const fetchTopProducts = async (limit = 6) => {
 export const searchProducts = async (query, { category, brand } = {}) => {
   const response = await API.get("/search", {
     params: { q: query, category, brand },
-  });``
+  });
   return response.data.products;
 };
 

@@ -4,8 +4,6 @@ import UserActivity from "../models/userActivityModel.js";
 import { indexProduct, deleteProductFromES } from "../services/elasticsearch.js";
 import { getFromCache, setInCache, deleteFromCache } from "../services/redisCacheService.js";
 import jwt from "jsonwebtoken";
-import User from "../models/userModel.js";
-
 // @desc    Fetch all products with pagination and filter
 // @route   GET /api/products
 // @access  Public
@@ -76,7 +74,7 @@ const getProductById = asyncHandler(async (req, res) => {
           { upsert: true }
         );
       } catch (err) {
-        // Silently fail if token invalid during non-protected route
+        console.warn("Invalid token during activity tracking:", err.message);
       }
     }
 

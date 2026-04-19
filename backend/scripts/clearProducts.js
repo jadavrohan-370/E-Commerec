@@ -1,6 +1,5 @@
-import path from "path";
+import path from "node:path";
 import dotenv from "dotenv";
-import mongoose from "mongoose";
 import connectDB from "../config/db.js";
 import Product from "../models/productModel.js";
 import Order from "../models/orderModel.js";
@@ -29,7 +28,7 @@ const clearProducts = async () => {
       await redisClient.flushAll();
       console.log("Redis cache cleared.");
     } catch (redisError) {
-      console.log("Redis not available, skipping cache clear.");
+      console.warn("Redis not available, skipping cache clear.", redisError.message);
     }
 
     // 3. Clear Elasticsearch if configured
@@ -46,7 +45,7 @@ const clearProducts = async () => {
       await esClient.indices.create({ index: "products" });
       console.log("Elasticsearch synced.");
     } catch (esError) {
-      console.log("Elasticsearch not available or not configured, skipping ES clear.");
+      console.warn("Elasticsearch not available or not configured, skipping ES clear.", esError.message);
     }
 
     console.log("SUCCESS: Website products have been cleared.");

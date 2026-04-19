@@ -26,4 +26,4 @@ router.get("/", getProducts);
  */
 router.get("/:id", getProductById);
 
-export default router;``
+export default router;

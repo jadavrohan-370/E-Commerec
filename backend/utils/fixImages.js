@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import dotenv from "dotenv";
 import Product from "../models/productModel.js";
 import connectDB from "../config/db.js";
@@ -53,7 +52,7 @@ const fixImages = async () => {
     let updatedCount = 0;
 
     for (const product of products) {
-      if (product.images && product.images.some(img => img.includes('source.unsplash.com'))) {
+      if (product?.images?.some(img => img.includes('source.unsplash.com'))) {
         product.images = categoryImages[product.category] || [
           'https://images.unsplash.com/photo-1550009158-9ebf69173e03?q=80&w=800&auto=format&fit=crop'
         ];

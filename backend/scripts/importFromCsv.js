@@ -1,13 +1,12 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 import csv from "csv-parser";
 import dotenv from "dotenv";
-import mongoose from "mongoose";
 import connectDB from "../config/db.js";
 import Product from "../models/productModel.js";
 import User from "../models/userModel.js";
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,7 +23,7 @@ const importCsvData = async () => {
       process.exit(1);
     }
 
-    const results = [];
+
     const csvFilePath = path.join(__dirname, "../data/products.csv");
 
     if (!fs.existsSync(csvFilePath)) {
@@ -33,7 +32,7 @@ const importCsvData = async () => {
     }
 
     // Helper to strip HTML tags from description
-    const stripHtml = (html) => html?.replace(/<\/?[^>]+(>|$)/g, "") || "";
+    const stripHtml = (html) => html?.replaceAll(/<\/?[^>]+(>|$)/g, "") || "";
 
     const productsMap = new Map();
 
@@ -42,22 +41,7 @@ const importCsvData = async () => {
       .on("data", (data) => {
         const handle = data['Handle'];
         
-        if (!productsMap.has(handle)) {
-          // New product entry
-          productsMap.set(handle, {
-            user: adminUser._id,
-            name: data['Title'] || handle,
-            brand: data['Vendor'] || "Unknown",
-            category: data['Type'] || "General",
-            description: stripHtml(data['Body (HTML)']),
-            price: parseFloat(data['Variant Price']) || 0,
-            discountPrice: parseFloat(data['Variant Compare At Price']) || 0,
-            stock: parseInt(data['Variant Inventory Qty']) || 0,
-            images: data['Image Src'] ? [data['Image Src']] : [],
-            rating: 4.5, // Default for new items
-            numReviews: 0
-          });
-        } else {
+        if (productsMap.has(handle)) {
           // Existing product (handle variant or extra image)
           const existing = productsMap.get(handle);
           
@@ -68,13 +52,28 @@ const importCsvData = async () => {
           
           // If this variant has a price and the existing one doesn't (or we want to update)
           if (!existing.price && data['Variant Price']) {
-            existing.price = parseFloat(data['Variant Price']);
+            existing.price = Number.parseFloat(data['Variant Price']);
           }
 
           // Sum up stock if it's across multiple rows
           if (data['Variant Inventory Qty']) {
-            existing.stock += parseInt(data['Variant Inventory Qty']) || 0;
+            existing.stock += Number.parseInt(data['Variant Inventory Qty'], 10) || 0;
           }
+        } else {
+          // New product entry
+          productsMap.set(handle, {
+            user: adminUser._id,
+            name: data['Title'] || handle,
+            brand: data['Vendor'] || "Unknown",
+            category: data['Type'] || "General",
+            description: stripHtml(data['Body (HTML)']),
+            price: Number.parseFloat(data['Variant Price']) || 0,
+            discountPrice: Number.parseFloat(data['Variant Compare At Price']) || 0,
+            stock: Number.parseInt(data['Variant Inventory Qty'], 10) || 0,
+            images: data['Image Src'] ? [data['Image Src']] : [],
+            rating: 4.5, // Default for new items
+            numReviews: 0
+          });
         }
       })
       .on("end", async () => {
@@ -97,7 +96,7 @@ const importCsvData = async () => {
           }
           console.log("Elasticsearch indexing complete.");
         } catch (esError) {
-          console.log("Elasticsearch indexing failed, skipping.");
+          console.warn("Elasticsearch indexing failed, skipping.", esError.message);
         }
         
         process.exit(0);

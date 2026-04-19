@@ -1,10 +1,8 @@
-import React, { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import React from "react";
+import { useParams } from "react-router-dom";
 import {
   useGetOrderDetailsQuery,
   usePayOrderMutation,
-  useGetRazorpayClientIdQuery,
-  useCreateRazorpayOrderMutation,
 } from "../store/slices/ordersApiSlice";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
@@ -19,7 +17,7 @@ import {
   Mail,
   MapPin,
 } from "lucide-react";
-import { motion as Motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 const Order = () => {
   const { id: orderId } = useParams();
@@ -31,9 +29,6 @@ const Order = () => {
     refetch,
   } = useGetOrderDetailsQuery(orderId);
   const [payOrder] = usePayOrderMutation();
-  const { data: configAuth } = useGetRazorpayClientIdQuery();
-  const [createRazorpayOrder, { isLoading: loadingRazorpayOrder }] =
-    useCreateRazorpayOrderMutation();
 
   // Removed Razorpay script load and displayRazorpay handle for demo mode
 
@@ -95,7 +90,7 @@ const Order = () => {
           <div className="lg:col-span-8 space-y-12">
             {/* Customer & Delivery Section */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <Motion.div
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="bg-secondary/10 border rounded-4xl p-8"
@@ -111,9 +106,9 @@ const Order = () => {
                     <Mail size={14} /> {order.user.email}
                   </div>
                 </div>
-              </Motion.div>
+              </motion.div>
 
-              <Motion.div
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
@@ -130,11 +125,11 @@ const Order = () => {
                   <br />
                   {order.shippingAddress.country}
                 </p>
-              </Motion.div>
+              </motion.div>
             </div>
 
             {/* Status Section */}
-            <Motion.div
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -187,10 +182,10 @@ const Order = () => {
                   </div>
                 </div>
               </div>
-            </Motion.div>
+            </motion.div>
 
             {/* Order Items */}
-            <Motion.div
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
@@ -200,11 +195,12 @@ const Order = () => {
                 Acquired Pieces
               </h2>
               <div className="space-y-8">
-                {order.orderItems.map((item, index) => (
-                  <div key={index} className="flex gap-8 items-center group">
+                {order.orderItems.map((item) => (
+                  <div key={item.product || item._id} className="flex gap-8 items-center group">
                     <div className="w-24 h-28 bg-background rounded-3xl border p-2 overflow-hidden shrink-0">
                       <img
                         src={item.image}
+                        alt={item.name}
                         className="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-700"
                       />
                     </div>
@@ -222,12 +218,12 @@ const Order = () => {
                   </div>
                 ))}
               </div>
-            </Motion.div>
+            </motion.div>
           </div>
 
           {/* Invoice Summary Card */}
           <div className="lg:col-span-4">
-            <Motion.div
+            <motion.div
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               className="bg-foreground text-background rounded-4xl p-10 md:p-12 sticky top-32 shadow-2xl"
@@ -278,7 +274,6 @@ const Order = () => {
                 <div className="mt-12 space-y-4">
                   <button
                     onClick={demoPaymentHandler}
-                    disabled={loadingRazorpayOrder}
                     className="w-full bg-primary text-primary-foreground font-bold py-6 rounded-2xl shadow-xl hover:opacity-90 transition-all flex justify-center items-center gap-3 group active:scale-[0.98]"
                   >
                     Simulate Demo Payment
@@ -292,7 +287,7 @@ const Order = () => {
                   </p>
                 </div>
               )}
-            </Motion.div>
+            </motion.div>
           </div>
         </div>
       </div>

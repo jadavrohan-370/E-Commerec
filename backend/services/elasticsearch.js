@@ -41,7 +41,7 @@ export const setupIndex = async () => {
       console.log("Elasticsearch 'products' index initialized.");
     }
   } catch (error) {
-    // Index might already exist
+    console.warn("Index might already exist or ES is down:", error.message);
   }
 };
 
@@ -114,6 +114,7 @@ export const searchProductsES = async (queryText, filters = {}) => {
       });
       return hits.hits.map((hit) => hit._id);
     } catch (innerError) {
+      console.warn("ES Legacy Search Error:", innerError.message);
       return [];
     }
   }
