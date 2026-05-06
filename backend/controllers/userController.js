@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
-import generateToken from "../utils/generateToken.js";
+import generateTokens from "../utils/generateToken.js";
+import jwt from "jsonwebtoken";
 
 // @desc    Auth user & get token
 const authUser = asyncHandler(async (req, res) => {
@@ -8,7 +9,7 @@ const authUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user && (await user.matchPassword(password))) {
-    generateToken(res, user._id);
+    generateTokens(res, user._id);
     res.status(200).json({
       _id: user._id,
       name: user.name,
@@ -34,7 +35,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const user = await User.create({ name, email, password });
 
   if (user) {
-    generateToken(res, user._id);
+    generateTokens(res, user._id);
     res.status(201).json({
       _id: user._id,
       name: user.name,
@@ -50,7 +51,37 @@ const registerUser = asyncHandler(async (req, res) => {
 // @desc    Logout user / clear cookie
 const logoutUser = asyncHandler(async (req, res) => {
   res.cookie("jwt", "", { httpOnly: true, expires: new Date(0) });
+  res.cookie("refreshToken", "", { httpOnly: true, expires: new Date(0) });
   res.status(200).json({ message: "Logged out successfully" });
+});
+
+// @desc    Refresh access token
+const refreshAccessToken = asyncHandler(async (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
+
+  if (!refreshToken) {
+    res.status(401);
+    throw new Error("Not authorized, no refresh token");
+  }
+
+  try {
+    const decoded = jwt.verify(
+      refreshToken,
+      process.env.REFRESH_TOKEN_SECRET || process.env.JWT_SECRET,
+    );
+    const user = await User.findById(decoded.userId);
+
+    if (!user) {
+      res.status(401);
+      throw new Error("Not authorized, user not found");
+    }
+
+    generateTokens(res, user._id);
+    res.status(200).json({ message: "Token refreshed" });
+  } catch (error) {
+    res.status(401);
+    throw new Error("Not authorized, refresh token failed");
+  }
 });
 
 // @desc    Get user profile
@@ -154,6 +185,7 @@ export {
   authUser,
   registerUser,
   logoutUser,
+  refreshAccessToken,
   getUserProfile,
   updateUserProfile,
   getUsers,

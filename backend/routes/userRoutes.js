@@ -4,6 +4,7 @@ import {
   authUser,
   registerUser,
   logoutUser,
+  refreshAccessToken,
   getUserProfile,
   updateUserProfile,
   getUsers,
@@ -16,6 +17,7 @@ import { protect, admin } from "../middlewares/authMiddleware.js";
 router.route("/").post(registerUser).get(protect, admin, getUsers);
 router.post("/login", authUser);
 router.post("/logout", logoutUser);
+router.post("/refresh", refreshAccessToken);
 router
   .route("/profile")
   .get(protect, getUserProfile)
